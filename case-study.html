@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Case study by Derek Joel George.">
+  <link rel="icon" href="images/logo-orange.png" type="image/png">
+  <title>Case Study — Derek Joel George</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/case-studies.css">
+</head>
+<body class="case-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="page">
+    <header class="site-header" aria-label="Site header">
+      <a href="index.html" class="site-header__brand" aria-label="Home">
+        <img src="images/logo-orange.png" alt="" class="site-header__logo" width="38" height="30">
+      </a>
+      <nav class="site-header__social" aria-label="Social links">
+        <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:hello@example.com" class="social-link" aria-label="Email">
+          <i class="far fa-envelope" aria-hidden="true"></i>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="case-page__main">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="case-studies.html">Case Studies</a></li>
+          <li class="breadcrumbs__sep" aria-hidden="true">/</li>
+          <li class="breadcrumbs__item"><span class="breadcrumbs__current" id="breadcrumbCurrent">Loading…</span></li>
+        </ol>
+      </nav>
+
+      <div class="case-study" id="caseStudy">
+        <h1 class="case-study__title">Loading case study…</h1>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav__link" aria-label="Home">
+      <i class="fa-solid fa-house" aria-hidden="true"></i>
+    </a>
+    <a href="case-studies.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Case Studies">
+      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+    </a>
+    <a href="creative-library.html" class="mobile-nav__link" aria-label="Creative Library">
+      <i class="fa-solid fa-palette" aria-hidden="true"></i>
+    </a>
+    <a href="index.html#experiments-heading" class="mobile-nav__link" aria-label="Experiments">
+      <i class="fa-solid fa-flask" aria-hidden="true"></i>
+    </a>
+  </nav>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-dev-data.js"></script>
+  <script src="js/supabase-cache.js"></script>
+  <script src="js/supabase-storage.js"></script>
+  <script src="js/case-studies.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+:root {
+  --color-text: #1e1e1e;
+  --color-bg: #ffffff;
+  --color-border: #d9d9d9;
+  --color-card: #d9d9d9;
+  --color-library-bg: #d9d9d9;
+  --color-accent: #ff8d28;
+  --color-accent-mobile: #eb8b01;
+  --color-gray-2: #aeaeb2;
+
+  --font-display: 'Host Grotesk', 'Manrope', sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-barcode: 'Libre Barcode 128 Text', cursive;
+
+  --frame-max: 90rem;
+  --desktop-pad-x: 8.25rem;
+  --desktop-pad-y: 3.5625rem;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  overflow: hidden;
+  height: 100%;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100000;
+  padding: 0.75rem 1rem;
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  [role="tooltip"],
+  .info-btn__tooltip,
+  .curious-btn-tooltip,
+  .break-btn-tooltip,
+  .folder__tooltip--cursor,
+  #cursor-tooltip,
+  .cs-image-tooltip {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .social-link--resume::after {
+    content: none !important;
+    display: none !important;
+  }
+}

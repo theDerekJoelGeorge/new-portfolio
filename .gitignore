@@ -1,0 +1,20 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Env / secrets (keep Supabase keys in supabase-config.js or use env locally)
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional local tooling
+.cursor/
+node_modules/
+dist/
+.cache/

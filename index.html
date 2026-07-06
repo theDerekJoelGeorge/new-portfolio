@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Derek Joel George — UX, UI, and Interaction Designer based in Brisbane, Australia.">
+  <link rel="icon" href="images/logo-orange.png" type="image/png">
+  <title>Derek Joel George — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Libre+Barcode+128+Text&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/case-studies.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="page">
+    <header class="site-header" aria-label="Site header">
+      <a href="index.html" class="site-header__brand" aria-label="Home">
+        <img src="images/logo-orange.png" alt="" class="site-header__logo" id="bowmanArcherAnchor" width="38" height="30">
+      </a>
+      <nav class="site-header__social" aria-label="Social links">
+        <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+        </a>
+        <a href="mailto:hello@example.com" class="social-link" aria-label="Email">
+          <i class="far fa-envelope" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="social-link social-link--resume" aria-label="Resume" data-tooltip="View my resume">
+          <i class="far fa-file-lines" aria-hidden="true"></i>
+        </a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="main-grid">
+      <section class="profile" aria-labelledby="profile-name">
+        <div class="profile__avatar-wrap">
+          <img src="images/logo-watermark.png" alt="" class="profile__watermark" width="440" height="350" aria-hidden="true">
+          <div class="profile__avatar-stage">
+            <div class="profile__avatar" data-stick-target>
+              <img src="images/avatar.png" alt="Illustrated portrait of Derek Joel George wearing an orange beanie" class="profile__avatar-inner" width="299" height="376">
+            </div>
+            <span class="profile__avatar-shadow" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="profile__identity">
+          <div class="profile__headline">
+            <div class="profile__name-row">
+              <div class="profile__name-block">
+                <div class="profile__name-wrap">
+                  <h1 id="profile-name" class="profile__name" data-stick-target>derekjoelgeorge</h1>
+                  <button type="button" class="info-btn" id="aboutInfoBtn" aria-label="About me" aria-expanded="false" aria-controls="aboutPanel">i</button>
+                </div>
+                <p class="profile__tagline">User Experience Designer<span class="profile__tagline-extra"> | Avid Vibe Coder</span></p>
+              </div>
+            </div>
+            <p class="profile__role-barcode" aria-hidden="true">user experience designer</p>
+          </div>
+          <span class="sr-only">User experience designer</span>
+        </div>
+
+        <p class="profile__bio">I like turning messy ideas and complex requirements into structured, user-friendly experiences.</p>
+
+        <dl class="profile__timeline">
+          <dt class="profile__timeline-date" data-stick-target>2026</dt>
+          <dd class="profile__timeline-detail">UX Designer <span class="regular">at</span> <a href="#">Dunstan Consulting Group</a></dd>
+          <dt class="profile__timeline-date" data-stick-target>2023-2025</dt>
+          <dd class="profile__timeline-detail">HCI Grad <span class="regular">from</span> <a href="https://www.uq.edu.au/">University of Queensland</a></dd>
+          <dt class="profile__timeline-date" id="timelineYear2021" data-stick-target><span class="profile__timeline-year-anchor">2021</span>-2023</dt>
+          <dd class="profile__timeline-detail">Analyst <span class="regular">from</span> <a href="#">Capgemini India</a></dd>
+        </dl>
+      </section>
+
+      <div class="right-slot" id="rightSlot" aria-label="Right panel">
+        <div class="portfolio" id="portfolioPanel" aria-label="Work and experiments">
+          <section class="portfolio__block" aria-labelledby="case-studies-heading">
+            <h2 id="case-studies-heading" class="portfolio__section-title">case studies //</h2>
+            <div class="card-row" id="caseStudiesRow" aria-live="polite">
+              <div class="card-placeholder case-studies-home__loading" data-stick-target aria-hidden="true"></div>
+              <div class="card-placeholder case-studies-home__loading" data-stick-target aria-hidden="true"></div>
+              <div class="card-placeholder case-studies-home__loading" data-stick-target aria-hidden="true"></div>
+            </div>
+          </section>
+
+          <section class="portfolio__block portfolio__block--library" aria-labelledby="library-heading">
+            <h2 id="library-heading" class="portfolio__section-title">my creative library //</h2>
+            <div class="library-panel">
+              <div class="folders-row">
+                <a class="folder" href="#" id="photoLogsFolder" data-folder="photo-logs" data-stick-target style="--folder-color:#2BA89A" data-tooltip="Photography and visual logs">
+                  <span class="folder__icon" aria-hidden="true">
+                    <span class="folder__icon-back"></span>
+                    <span class="folder__icon-contents">
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                    </span>
+                    <span class="folder__icon-flap"><span class="folder__icon-tab"></span></span>
+                  </span>
+                  <span class="folder__label">Photo Logs</span>
+                </a>
+                <a class="folder" href="#" id="videoLogsFolder" data-folder="video-logs" data-stick-target style="--folder-color:#4A7EB8" data-tooltip="Video experiments and logs">
+                  <span class="folder__icon" aria-hidden="true">
+                    <span class="folder__icon-back"></span>
+                    <span class="folder__icon-contents">
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                    </span>
+                    <span class="folder__icon-flap"><span class="folder__icon-tab"></span></span>
+                  </span>
+                  <span class="folder__label">Video Logs</span>
+                </a>
+                <a class="folder" href="#" id="writingsFolder" data-stick-target style="--folder-color:#7C5CB8" data-tooltip="Essays and written pieces">
+                  <span class="folder__icon" aria-hidden="true">
+                    <span class="folder__icon-back"></span>
+                    <span class="folder__icon-contents">
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                      <span class="folder__icon-line"></span>
+                    </span>
+                    <span class="folder__icon-flap"><span class="folder__icon-tab"></span></span>
+                  </span>
+                  <span class="folder__label">Writings</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="portfolio__block" aria-labelledby="experiments-heading">
+            <h2 id="experiments-heading" class="portfolio__section-title">my vibecoding experiments //</h2>
+            <div class="card-row">
+              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
+              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
+              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="about-panel" id="aboutPanel" aria-label="About me">
+          <div class="about-window">
+            <header class="about-window__header">
+              <div class="about-window__header-start">
+                <button type="button" class="about-window__back" id="aboutBackBtn" aria-label="Close about me">
+                  <span class="about-window__back-pill" aria-hidden="true">
+                    <span class="about-window__back-chevron"></span>
+                    <span class="about-window__back-badge">67</span>
+                  </span>
+                </button>
+                <div class="about-window__contact">
+                  <img src="assets/pp.jpg" alt="" class="about-window__avatar" width="62" height="62">
+                  <p class="about-window__name">Derek Joel George</p>
+                </div>
+              </div>
+
+              <nav class="about-window__tabs" role="tablist" aria-label="About me views">
+                <button type="button" class="about-window__tab about-window__tab--active" id="aboutChatTab" role="tab" aria-selected="true" aria-controls="aboutChatPanel" data-tab="chat">
+                  <i class="fa-regular fa-comments about-window__tab-icon" aria-hidden="true"></i>
+                  <span>Chat</span>
+                </button>
+                <button type="button" class="about-window__tab" id="aboutGalleryTab" role="tab" aria-selected="false" aria-controls="aboutGalleryPanel" data-tab="gallery">
+                  <i class="fa-regular fa-image about-window__tab-icon" aria-hidden="true"></i>
+                  <span>Gallery</span>
+                </button>
+              </nav>
+            </header>
+
+            <div class="about-window__panel about-window__panel--chat" id="aboutChatPanel" role="tabpanel" aria-labelledby="aboutChatTab">
+              <div class="about-window__chat">
+                <div class="about-chat__viewport" id="aboutChatViewport">
+                  <p class="about-chat__date">Today</p>
+                  <div class="about-chat__messages" id="aboutChatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
+                  <p class="about-chat__prompt" id="aboutChatPrompt">Pick a question to ask</p>
+                  <div class="about-chat__suggestions" id="aboutChatSuggestions" role="group" aria-label="Suggested questions"></div>
+                </div>
+                <div class="about-chat__scrollbar" aria-hidden="true">
+                  <div class="about-chat__scrollbar-track"></div>
+                  <div class="about-chat__scrollbar-thumb" id="aboutScrollbarThumb"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-window__panel about-window__panel--gallery" id="aboutGalleryPanel" role="tabpanel" aria-labelledby="aboutGalleryTab" hidden>
+              <div class="about-gallery">
+                <p class="about-gallery__status" id="aboutGalleryStatus">Loading photos…</p>
+                <div class="about-gallery__grid" id="aboutGalleryGrid" aria-label="Photo gallery" hidden></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="library-panel" id="photoLogsPanel" aria-label="Photo logs">
+          <div class="library-window">
+            <header class="library-window__titlebar">
+              <div class="library-window__controls" aria-label="Window controls">
+                <button type="button" class="library-window__dot library-window__dot--close" data-library-close aria-label="Close photo logs"></button>
+                <button type="button" class="library-window__dot library-window__dot--minimize" data-library-close aria-label="Close photo logs"></button>
+                <button type="button" class="library-window__dot library-window__dot--zoom" data-library-expand aria-label="Expand window" aria-pressed="false"></button>
+              </div>
+              <p class="library-window__title">photo logs</p>
+              <div class="library-window__titlebar-spacer" aria-hidden="true"></div>
+            </header>
+            <div class="library-window__content">
+              <p class="library-window__status">Loading photos…</p>
+              <div class="library-slideshow" hidden>
+                <div class="library-slideshow__stage">
+                  <img class="library-slideshow__hero-image" alt="" decoding="async">
+                </div>
+                <div class="library-slideshow__thumbs" role="tablist" aria-label="Photo thumbnails"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="library-panel" id="videoLogsPanel" aria-label="Video logs">
+          <div class="library-window">
+            <header class="library-window__titlebar">
+              <div class="library-window__controls" aria-label="Window controls">
+                <button type="button" class="library-window__dot library-window__dot--close" data-library-close aria-label="Close video logs"></button>
+                <button type="button" class="library-window__dot library-window__dot--minimize" data-library-close aria-label="Close video logs"></button>
+                <button type="button" class="library-window__dot library-window__dot--zoom" data-library-expand aria-label="Expand window" aria-pressed="false"></button>
+              </div>
+              <p class="library-window__title">video logs</p>
+              <div class="library-window__titlebar-spacer" aria-hidden="true"></div>
+            </header>
+            <div class="library-window__content">
+              <p class="library-window__status">Loading videos…</p>
+              <div class="library-slideshow" hidden>
+                <div class="library-slideshow__stage library-slideshow__stage--video">
+                  <iframe
+                    class="library-slideshow__hero-video"
+                    title="Video player"
+                    src=""
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div class="library-slideshow__thumbs" role="tablist" aria-label="Video thumbnails"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="library-panel" id="writingsPanel" aria-label="Writings">
+          <div class="library-window">
+            <header class="library-window__titlebar">
+              <div class="library-window__controls" aria-label="Window controls">
+                <button type="button" class="library-window__dot library-window__dot--close" data-writings-close aria-label="Close writings"></button>
+                <button type="button" class="library-window__dot library-window__dot--minimize" data-writings-close aria-label="Close writings"></button>
+                <button type="button" class="library-window__dot library-window__dot--zoom" data-writings-expand aria-label="Expand window" aria-pressed="false"></button>
+              </div>
+              <p class="library-window__title">writings</p>
+              <div class="library-window__titlebar-spacer" aria-hidden="true"></div>
+            </header>
+            <div class="library-window__content library-window__content--writings">
+              <p class="library-window__status" id="writingsStatus">Loading writings…</p>
+              <div class="writings-screens">
+                <div class="writings-panel writings-screen" id="writingsListView" hidden>
+                  <div class="writings-panel__scroll">
+                    <h2 class="writings-panel__heading">Writings</h2>
+                    <p class="writings-panel__intro">I got into writing as I was looking for new ways of expressing the ideas that were going on in my head.</p>
+                    <div class="writings-filters" id="writingsFilters" role="tablist" aria-label="Filter by type" hidden></div>
+                    <div class="writings-grid" id="writingsGrid" role="list" aria-label="Writings"></div>
+                  </div>
+                  <p class="writings-panel__count" id="writingsCount" aria-live="polite"></p>
+                </div>
+                <article class="writings-article writings-screen" id="writingsArticleView" hidden>
+                  <header class="writings-article__toolbar">
+                    <button type="button" class="writings-article__back" id="writingsBackBtn" aria-label="Back to writings list">
+                      <span class="writings-article__back-chevron" aria-hidden="true"></span>
+                      <span>Writings</span>
+                    </button>
+                  </header>
+                  <div class="writings-article__scroll">
+                    <h1 class="writings-article__title" id="writingsArticleTitle"></h1>
+                    <p class="writings-article__meta" id="writingsArticleMeta" hidden></p>
+                    <div class="writings-article__body" id="writingsArticleBody"></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="resume-panel" id="resumePanel" aria-label="Resume">
+          <div class="resume-window">
+            <div class="resume-window__titlebar">
+              <div class="resume-window__controls" aria-label="Window controls">
+                <button type="button" class="resume-window__dot resume-window__dot--close" id="resumeCloseBtn" aria-label="Close resume"></button>
+                <button type="button" class="resume-window__dot resume-window__dot--minimize" id="resumeMinBtn" aria-label="Close resume"></button>
+                <button type="button" class="resume-window__dot resume-window__dot--zoom" id="resumeZoomBtn" aria-label="Fullscreen resume"></button>
+              </div>
+              <p class="resume-window__title">derek-resume.pdf</p>
+              <div class="resume-window__actions" aria-label="Resume actions">
+                <a class="resume-window__download" href="assets/derek-resume.pdf" download>Download</a>
+              </div>
+            </div>
+
+            <div class="resume-window__content">
+              <iframe
+                class="resume-window__pdf"
+                title="Derek resume"
+                src="assets/derek-resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"
+                loading="lazy"
+                scrolling="no"
+              ></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-runner" id="footerRunner">
+        <canvas
+          class="footer-runner__canvas"
+          id="footerRunnerCanvas"
+          aria-hidden="true"
+          width="1440"
+          height="56"
+        ></canvas>
+        <hr class="site-footer__rule" aria-hidden="true">
+        <p class="footer-runner__instruction" id="footerBowmanInstruction" aria-hidden="true">
+          <span>Hold space to move the bowman.</span>
+          <span>Click and hold to charge, release to fire.</span>
+          <span>
+            Objective: find and shoot the target
+            <span class="footer-runner__target-icon" aria-hidden="true"></span>.
+          </span>
+          <span>Press Esc to exit.</span>
+        </p>
+      </div>
+      <p class="sr-only" id="footerRunnerStatus" role="status" aria-live="polite"></p>
+      <div class="site-footer__row">
+        <div class="site-footer__location">
+          <span class="site-footer__location-label">Based in Brisbane</span>
+          <span class="site-footer__location-meta">
+            <img src="images/brisbane-story-bridge.svg" alt="" class="site-footer__location-icon" width="34" height="20">
+            <time class="site-footer__location-time" id="brisbaneTime" datetime="">--:--:--</time>
+          </span>
+        </div>
+        <p class="footer-runner__hint" id="footerRunnerHint" aria-hidden="true">press space</p>
+        <div class="site-footer__actions">
+          <span class="site-footer__action-separator" aria-hidden="true">|</span>
+          <span class="curious-btn-wrap">
+            <button type="button" class="break-website-btn" id="breakWebsiteBtn">Do not Click</button>
+            <span class="curious-btn-tooltip" role="tooltip">what if this click breaks the website?</span>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="click-ripple-layer" id="clickRippleLayer" aria-hidden="true"></div>
+
+  <div class="bowman-overlay" id="bowmanOverlay" hidden aria-hidden="true">
+    <canvas class="bowman-overlay__canvas" id="bowmanOverlayCanvas"></canvas>
+  </div>
+  <div class="bowman-stuck-layer" id="bowmanStuckLayer" aria-hidden="true"></div>
+  <div class="bowman-target" id="bowmanTarget" hidden aria-hidden="true"></div>
+  <div class="bowman-confetti-layer" id="bowmanConfettiLayer" aria-hidden="true"></div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Home">
+      <i class="fa-solid fa-house" aria-hidden="true"></i>
+    </a>
+    <a href="case-studies.html" class="mobile-nav__link" aria-label="Case Studies">
+      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+    </a>
+    <a href="creative-library.html" class="mobile-nav__link" aria-label="Creative Library">
+      <i class="fa-solid fa-palette" aria-hidden="true"></i>
+    </a>
+    <a href="#experiments-heading" class="mobile-nav__link" aria-label="Experiments">
+      <i class="fa-solid fa-flask" aria-hidden="true"></i>
+    </a>
+  </nav>
+
+  <div class="break-overlay" id="breakOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="break-screen-title">
+    <div class="break-screen break-screen--1" id="breakScreen1">
+      <h2 class="break-screen__title" id="break-screen-title">Congratulations! You've successfully broken the website.</h2>
+      <p class="break-screen__subtitle">was that even worth it?</p>
+      <div class="break-screen__buttons">
+        <button type="button" class="break-screen__btn" id="breakYesBtn">yes</button>
+        <button type="button" class="break-screen__btn" id="breakNoBtn">no</button>
+      </div>
+    </div>
+    <div class="break-screen break-screen--2" id="breakScreen2">
+      <h2 class="break-screen__title"><span id="userChoice">no</span>? well, looks like curiosity killed the cat :/</h2>
+      <p class="break-screen__subtitle">you've got 2 choices now to fix the website</p>
+      <div class="break-screen__buttons">
+        <span class="break-btn-wrap">
+          <button type="button" class="break-screen__btn" id="breakEasyBtn">the easy way</button>
+          <span class="break-btn-tooltip" role="tooltip">well, you're boring</span>
+        </span>
+        <span class="break-btn-wrap">
+          <button type="button" class="break-screen__btn" id="breakHardBtn">the hard way</button>
+          <span class="break-btn-tooltip" role="tooltip">are you sure?</span>
+        </span>
+      </div>
+      <p class="break-screen__hint" id="breakHint" hidden>click on your choice again to proceed.</p>
+      <p class="break-screen__hint" id="breakTaunt" hidden>come on now, we all know that there is no easy way out here</p>
+      <p class="break-screen__footnote">you must be fun at parties if you are thinking of refreshing the page.</p>
+    </div>
+    <div class="break-screen break-screen--3" id="breakScreen3">
+      <h2 class="break-screen__title">there is no easy way out of this</h2>
+      <p class="break-screen__subtitle">win this game of pong to rebuild the website</p>
+      <div class="pong-container">
+        <div class="pong-instructions" id="pongInstructions" role="region" aria-label="Game instructions">
+          <h3 class="pong-instructions__title">HOW TO PLAY</h3>
+          <p class="pong-instructions__text">Use mouse, touch, or arrow keys to move the <span class="pong-instructions__paddle">green paddle</span></p>
+          <p class="pong-instructions__text">First to 3 points wins</p>
+          <button type="button" class="pong-start-btn" id="pongStartBtn">Start</button>
+        </div>
+        <canvas id="pongCanvas" class="pong-canvas" width="300" height="400" role="img" aria-label="Pong game" tabindex="0"></canvas>
+        <div class="pong-game-end" id="pongGameEnd" hidden>
+          <div class="confetti-container" id="confettiContainer" aria-hidden="true"></div>
+          <h3 class="pong-game-end__title" id="gameEndTitle">Congratulations!</h3>
+          <p class="pong-game-end__subtitle" id="gameEndSubtitle">You beat the AI</p>
+          <button type="button" class="pong-game-end__btn" id="gameEndBtn">Rebuild Website</button>
+        </div>
+      </div>
+      <p class="break-screen__footnote">you must be fun at parties if you are thinking of refreshing the page.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="js/break-website.js"></script>
+  <script src="js/footer-game-hub.js"></script>
+  <!-- Runner paused while Bowman is in testing — restore js/footer-runner.js when ready -->
+  <!-- <script src="js/footer-runner.js"></script> -->
+  <script src="js/footer-bowman.js"></script>
+  <script src="js/click-ripple.js"></script>
+  <script src="js/brisbane-time.js"></script>
+  <script src="js/folders.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-dev-data.js"></script>
+  <script src="js/supabase-cache.js"></script>
+  <script src="js/supabase-storage.js"></script>
+  <script src="js/case-studies.js"></script>
+  <script src="js/resume-modal.js"></script>
+  <script src="js/about-chat.js"></script>
+  <script src="js/library-panels.js"></script>
+  <script src="js/writings-panel.js"></script>
+</body>
+</html>
