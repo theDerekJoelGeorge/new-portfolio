@@ -416,8 +416,56 @@ html.site-broken body {
 
 .gravity-fall {
   animation: gravityFall 2s cubic-bezier(0.55, 0, 1, 0.45) forwards;
-  position: relative;
   z-index: 1;
+  will-change: transform, opacity;
+}
+
+.site-header.gravity-fall,
+.profile.gravity-fall,
+.main-grid.gravity-fall,
+.right-slot.gravity-fall,
+.site-footer.gravity-fall,
+.mobile-nav.gravity-fall,
+.portfolio.gravity-fall {
+  position: relative;
+}
+
+.about-panel.gravity-fall,
+aside.library-panel.gravity-fall,
+.resume-panel.gravity-fall {
+  z-index: 250;
+  pointer-events: none;
+}
+
+/* Reset inner window transforms so the panel shell can fall */
+.about-panel.gravity-fall .about-window,
+aside.library-panel.gravity-fall .library-window,
+.resume-panel.gravity-fall .resume-window {
+  transform: none !important;
+  transition: none !important;
+  will-change: auto;
+}
+
+html.site-broken .about-panel,
+html.site-broken .about-window,
+html.site-broken aside.library-panel,
+html.site-broken .library-window,
+html.site-broken .resume-panel,
+html.site-broken .resume-window,
+html.site-broken .right-slot,
+html.site-broken .main-grid {
+  transition: none !important;
+}
+
+html.site-broken .bowman-overlay,
+html.site-broken .bowman-stuck-layer,
+html.site-broken .bowman-target,
+html.site-broken .bowman-confetti-layer,
+html.site-broken .click-ripple-layer,
+html.site-broken .click-ripple {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 @keyframes gravityFall {
@@ -702,12 +750,34 @@ html.is-resume-open .resume-window {
   min-height: 0;
 }
 
-.resume-window__pdf {
+.resume-window__pdf,
+.resume-window__pdf-scroll {
   width: 100%;
   height: 100%;
   border: none;
   display: block;
   background: #d9d9d9;
+}
+
+.resume-window__pdf-scroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.resume-window__pdf-page {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.resume-window__pdf-page + .resume-window__pdf-page {
+  margin-top: 0.5rem;
+}
+
+html:not(.is-resume-open) .resume-window__pdf,
+html:not(.is-resume-open) .resume-window__pdf-scroll {
+  display: none !important;
 }
 
 /* Hide any iframe scrollbars (best-effort; PDF viewer varies by browser) */

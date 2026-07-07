@@ -265,9 +265,9 @@
   }
 
   function closeResumeIfOpen() {
-    if (!document.documentElement.classList.contains('is-resume-open')) return;
-    document.documentElement.classList.remove('is-resume-open');
-    document.documentElement.classList.remove('is-resume-fullscreen');
+    if (typeof window.closeResumeIfOpen === 'function') {
+      window.closeResumeIfOpen();
+    }
   }
 
   function closeLibraryPanelsIfOpen() {

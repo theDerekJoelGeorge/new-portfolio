@@ -4,17 +4,99 @@
   const portfolioPanel = document.getElementById('portfolioPanel');
   const resumePanel = document.getElementById('resumePanel');
   const resumeWindow = resumePanel ? resumePanel.querySelector('.resume-window') : null;
+  const resumePdfFrame = document.getElementById('resumePdfFrame');
+  const resumePdfScroll = document.getElementById('resumePdfScroll');
   const closeBtn = document.getElementById('resumeCloseBtn');
   const minBtn = document.getElementById('resumeMinBtn');
   const zoomBtn = document.getElementById('resumeZoomBtn');
 
   if (!resumeTrigger || !portfolioPanel || !resumePanel || !resumeWindow) return;
 
+  const RESUME_PDF_URL = 'assets/derek-resume.pdf';
+  const RESUME_PDF_HASH = '#toolbar=0&navpanes=0&scrollbar=0&view=Fit';
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TRANSITION_MS = 260;
-
   const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
   let isAnimating = false;
+  let pdfRenderToken = 0;
+
+  function isSafari() {
+    const ua = navigator.userAgent;
+    return /Safari/.test(ua) && !/Chromium|Chrome|CriOS|EdgiOS|Edg|OPR|FxiOS|Firefox/.test(ua);
+  }
+
+  function clearResumePdf() {
+    pdfRenderToken += 1;
+
+    if (resumePdfFrame) {
+      resumePdfFrame.removeAttribute('src');
+      resumePdfFrame.hidden = true;
+    }
+
+    if (resumePdfScroll) {
+      resumePdfScroll.innerHTML = '';
+      resumePdfScroll.hidden = true;
+    }
+  }
+
+  async function renderResumePdfWithPdfJs() {
+    if (!resumePdfScroll || !window.pdfjsLib) return false;
+
+    const renderToken = ++pdfRenderToken;
+    resumePdfScroll.innerHTML = '';
+    resumePdfScroll.hidden = false;
+
+    if (resumePdfFrame) resumePdfFrame.hidden = true;
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    try {
+      const pdf = await pdfjsLib.getDocument(RESUME_PDF_URL).promise;
+      if (renderToken !== pdfRenderToken) return false;
+
+      const containerWidth = Math.max(resumePdfScroll.clientWidth, 320);
+
+      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+        const page = await pdf.getPage(pageNumber);
+        if (renderToken !== pdfRenderToken) return false;
+
+        const baseViewport = page.getViewport({ scale: 1 });
+        const scale = containerWidth / baseViewport.width;
+        const viewport = page.getViewport({ scale: scale });
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'resume-window__pdf-page';
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const context = canvas.getContext('2d');
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+        if (renderToken !== pdfRenderToken) return false;
+
+        resumePdfScroll.appendChild(canvas);
+      }
+
+      return true;
+    } catch (error) {
+      console.warn('Failed to render resume PDF with PDF.js', error);
+      return false;
+    }
+  }
+
+  async function loadResumePdf() {
+    clearResumePdf();
+
+    if (isSafari()) {
+      const rendered = await renderResumePdfWithPdfJs();
+      if (rendered) return;
+    }
+
+    if (!resumePdfFrame) return;
+
+    resumePdfFrame.hidden = false;
+    resumePdfFrame.src = RESUME_PDF_URL + RESUME_PDF_HASH;
+  }
 
   function rectCenter(rect) {
     return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
@@ -60,6 +142,7 @@
 
     document.documentElement.classList.add('is-resume-open');
     resumePanel.classList.remove('is-closing');
+    loadResumePdf();
 
     if (prefersReducedMotion) {
       isAnimating = false;
@@ -102,6 +185,7 @@
     if (prefersReducedMotion) {
       document.documentElement.classList.remove('is-resume-open');
       document.documentElement.classList.remove('is-resume-fullscreen');
+      clearResumePdf();
       return;
     }
 
@@ -125,6 +209,7 @@
         resumePanel.classList.remove('is-closing');
         document.documentElement.classList.remove('is-resume-open');
         document.documentElement.classList.remove('is-resume-fullscreen');
+        clearResumePdf();
 
         setWindowTransition('');
         resumeWindow.style.opacity = '';
@@ -138,6 +223,14 @@
     if (!document.documentElement.classList.contains('is-resume-open')) return;
     document.documentElement.classList.toggle('is-resume-fullscreen');
   }
+
+  window.clearResumePdf = clearResumePdf;
+  window.closeResumeIfOpen = function () {
+    if (!document.documentElement.classList.contains('is-resume-open')) return;
+    document.documentElement.classList.remove('is-resume-open');
+    document.documentElement.classList.remove('is-resume-fullscreen');
+    clearResumePdf();
+  };
 
   resumeTrigger.addEventListener('click', function (e) {
     e.preventDefault();

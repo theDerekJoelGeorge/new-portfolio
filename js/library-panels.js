@@ -40,6 +40,94 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const logoTrigger = document.querySelector('.site-header__brand');
   const panelControllers = [];
+  let imageModal = null;
+
+  function isMobile() {
+    return window.matchMedia('(max-width: 960px)').matches;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function displayCategoryTitle(title) {
+    const value = String(title || '');
+    if (value.toLowerCase() === 'writings') return 'Writings';
+    if (value.toLowerCase() === 'photo logs') return 'Photo Logs';
+    if (value.toLowerCase() === 'video logs') return 'Video Logs';
+    return value.replace(/\b\w/g, function (char) {
+      return char.toUpperCase();
+    });
+  }
+
+  function getEntryDescription(entry) {
+    const description = entry.description || entry.Description || entry.desc || '';
+    if (String(description).trim()) return String(description).trim();
+    const body = entry.body || entry.content || entry.text || entry.entry || entry.Entry || '';
+    if (body && !/youtube\.com|youtu\.be/i.test(body)) return String(body).trim();
+    return '';
+  }
+
+  function getEntryYear(entry) {
+    let year = entry.year || entry.date || entry.created_at;
+    if (year && typeof year === 'string' && year.length > 4) year = year.slice(0, 4);
+    return year ? String(year) : '';
+  }
+
+  function buildMobileHeader(title) {
+    const displayTitle = displayCategoryTitle(title);
+    return (
+      '<nav class="library-mobile-breadcrumbs" aria-label="Breadcrumb">' +
+        '<ol class="library-mobile-breadcrumbs__list">' +
+          '<li><a class="library-mobile-breadcrumbs__link" href="creative-library.html">Creative Library</a></li>' +
+          '<li aria-hidden="true">/</li>' +
+          '<li><span class="library-mobile-breadcrumbs__current">' + escapeHtml(displayTitle) + '</span></li>' +
+        '</ol>' +
+      '</nav>' +
+      '<h1 class="library-mobile-title">' + escapeHtml(displayTitle) + '</h1>'
+    );
+  }
+
+  function ensureImageModal() {
+    if (imageModal) return imageModal;
+
+    const modal = document.createElement('div');
+    modal.className = 'library-image-modal';
+    modal.innerHTML =
+      '<div class="library-image-modal__overlay" data-library-modal-close></div>' +
+      '<div class="library-image-modal__content">' +
+        '<img class="library-image-modal__img" src="" alt="">' +
+        '<p class="library-image-modal__title"></p>' +
+      '</div>' +
+      '<button type="button" class="library-image-modal__close" data-library-modal-close aria-label="Close image">×</button>';
+
+    document.body.appendChild(modal);
+
+    modal.querySelectorAll('[data-library-modal-close]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        modal.classList.remove('library-image-modal--active');
+      });
+    });
+
+    imageModal = modal;
+    return modal;
+  }
+
+  function openImageModal(image) {
+    const modal = ensureImageModal();
+    const img = modal.querySelector('.library-image-modal__img');
+    const title = modal.querySelector('.library-image-modal__title');
+    img.src = image.src;
+    img.alt = image.alt || '';
+    title.textContent = image.title || '';
+    title.hidden = !image.title;
+    modal.classList.add('library-image-modal--active');
+  }
 
   function getImageUrl(entry) {
     const raw =
@@ -153,9 +241,8 @@
     if (typeof window.closeAboutPanel === 'function') {
       window.closeAboutPanel(true);
     }
-    if (document.documentElement.classList.contains('is-resume-open')) {
-      document.documentElement.classList.remove('is-resume-open');
-      document.documentElement.classList.remove('is-resume-fullscreen');
+    if (typeof window.closeResumeIfOpen === 'function') {
+      window.closeResumeIfOpen();
     }
     panelControllers.forEach(function (controller) {
       if (controller !== exceptController) {
@@ -176,6 +263,7 @@
     const heroVideoEl = panelEl ? panelEl.querySelector('.library-slideshow__hero-video') : null;
     const thumbsEl = panelEl ? panelEl.querySelector('.library-slideshow__thumbs') : null;
     const statusEl = panelEl ? panelEl.querySelector('.library-window__status') : null;
+    const mobileFeedEl = panelEl ? panelEl.querySelector('.library-mobile-feed') : null;
     const closeButtons = panelEl ? panelEl.querySelectorAll('[data-library-close]') : [];
     const expandBtn = panelEl ? panelEl.querySelector('[data-library-expand]') : null;
 
@@ -224,6 +312,97 @@
       statusEl.hidden = false;
       statusEl.classList.toggle('library-window__status--error', Boolean(isError));
       slideshowEl.hidden = true;
+      if (mobileFeedEl) mobileFeedEl.hidden = true;
+    }
+
+    function renderMobilePhotoGallery(rows) {
+      if (!mobileFeedEl) return;
+
+      const items = rows
+        .map(function (entry, index) {
+          const imageUrl = getImageUrl(entry);
+          if (!imageUrl) return '';
+          const title = escapeHtml(getSlideLabel(entry, index, config.defaultSlideLabel));
+          return (
+            '<article class="library-gallery-item">' +
+              '<button type="button" class="library-gallery-item__button" data-image-src="' + escapeHtml(imageUrl) + '" data-image-title="' + title + '">' +
+                '<span class="library-gallery-item__image-wrap">' +
+                  '<img class="library-gallery-item__image" src="' + escapeHtml(imageUrl) + '" alt="' + title + '" loading="lazy" decoding="async">' +
+                '</span>' +
+              '</button>' +
+            '</article>'
+          );
+        })
+        .filter(Boolean)
+        .join('');
+
+      mobileFeedEl.innerHTML =
+        buildMobileHeader(config.title) +
+        '<div class="library-gallery-grid" role="list" aria-label="Photo gallery">' +
+          items +
+        '</div>';
+
+      mobileFeedEl.hidden = false;
+      slideshowEl.hidden = true;
+      statusEl.hidden = true;
+
+      mobileFeedEl.querySelectorAll('[data-image-src]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          openImageModal({
+            src: button.getAttribute('data-image-src'),
+            alt: button.getAttribute('data-image-title') || '',
+            title: button.getAttribute('data-image-title') || '',
+          });
+        });
+      });
+    }
+
+    function renderMobileVideoList(rows) {
+      if (!mobileFeedEl) return;
+
+      const items = rows
+        .map(function (entry, index) {
+          const videoUrl = getVideoUrl(entry);
+          const embedUrl = getYouTubeEmbedUrl(videoUrl);
+          if (!embedUrl) return '';
+          const title = escapeHtml(getSlideLabel(entry, index, config.defaultSlideLabel));
+          const description = escapeHtml(getEntryDescription(entry));
+          return (
+            '<article class="library-video-entry">' +
+              '<div class="library-video-entry__video">' +
+                '<iframe title="' + title + '" src="' + escapeHtml(embedUrl) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>' +
+              '</div>' +
+              '<h2 class="library-video-entry__title">' + title + '</h2>' +
+              (description ? '<p class="library-video-entry__description">' + description + '</p>' : '') +
+            '</article>'
+          );
+        })
+        .filter(Boolean)
+        .join('');
+
+      mobileFeedEl.innerHTML =
+        buildMobileHeader(config.title) +
+        '<div class="library-video-list" role="list" aria-label="Video logs">' +
+          items +
+        '</div>';
+
+      mobileFeedEl.hidden = false;
+      slideshowEl.hidden = true;
+      statusEl.hidden = true;
+    }
+
+    function renderContent(rows) {
+      if (isMobile()) {
+        if (config.mediaType === 'video') {
+          renderMobileVideoList(rows);
+        } else {
+          renderMobilePhotoGallery(rows);
+        }
+        return;
+      }
+
+      if (mobileFeedEl) mobileFeedEl.hidden = true;
+      renderSlideshow(rows);
     }
 
     function scrollActiveThumbIntoView() {
@@ -373,7 +552,7 @@
           loadState = 'error';
           return;
         }
-        renderSlideshow(entries);
+        renderContent(entries);
         loadState = 'loaded';
       }
 
@@ -439,11 +618,13 @@
       loadEntries();
       document.documentElement.classList.add(config.openClass);
 
-      if (prefersReducedMotion) {
+      if (prefersReducedMotion || isMobile()) {
         isAnimating = false;
         requestAnimationFrame(function () {
-          updateThumbsOverflow();
-          scrollActiveThumbIntoView();
+          if (!isMobile()) {
+            updateThumbsOverflow();
+            scrollActiveThumbIntoView();
+          }
         });
         return;
       }
@@ -475,13 +656,17 @@
     function close(immediate) {
       if (!isOpen()) return;
 
-      if (immediate || prefersReducedMotion) {
+      if (immediate || prefersReducedMotion || isMobile()) {
         document.documentElement.classList.remove(config.openClass);
         setExpanded(false);
         setWindowTransition('');
         windowEl.style.opacity = '';
         windowEl.style.transform = '';
         if (heroVideoEl) heroVideoEl.src = '';
+        if (mobileFeedEl) {
+          mobileFeedEl.innerHTML = '';
+          mobileFeedEl.hidden = true;
+        }
         isAnimating = false;
         return;
       }
@@ -602,5 +787,12 @@
       return controller.config.key === 'photo';
     });
     if (photoPanel) photoPanel.close(immediate);
+  };
+
+  window.openLibraryPanelByKey = function (key) {
+    const controller = panelControllers.find(function (item) {
+      return item.config.key === key;
+    });
+    if (controller) controller.open();
   };
 })();

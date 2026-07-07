@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/library-mobile.css">
   <link rel="stylesheet" href="css/case-studies.css">
 </head>
 <body>
@@ -213,6 +214,7 @@
                 </div>
                 <div class="library-slideshow__thumbs" role="tablist" aria-label="Photo thumbnails"></div>
               </div>
+              <div class="library-mobile-feed" hidden></div>
             </div>
           </div>
         </aside>
@@ -242,6 +244,7 @@
                 </div>
                 <div class="library-slideshow__thumbs" role="tablist" aria-label="Video thumbnails"></div>
               </div>
+              <div class="library-mobile-feed" hidden></div>
             </div>
           </div>
         </aside>
@@ -302,11 +305,12 @@
             </div>
 
             <div class="resume-window__content">
+              <div class="resume-window__pdf-scroll" id="resumePdfScroll" hidden></div>
               <iframe
                 class="resume-window__pdf"
+                id="resumePdfFrame"
                 title="Derek resume"
-                src="assets/derek-resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit"
-                loading="lazy"
+                hidden
                 scrolling="no"
               ></iframe>
             </div>
@@ -429,6 +433,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/break-website.js"></script>
   <script src="js/footer-game-hub.js"></script>
   <!-- Runner paused while Bowman is in testing — restore js/footer-runner.js when ready -->

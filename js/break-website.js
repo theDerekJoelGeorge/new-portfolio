@@ -23,10 +23,85 @@
   let fallingElements = [];
   let pongGame = null;
 
+  const getOpenPanelElements = function () {
+    const html = document.documentElement;
+    const panels = [];
+    const openMap = [
+      ['is-about-open', 'aboutPanel'],
+      ['is-photo-logs-open', 'photoLogsPanel'],
+      ['is-video-logs-open', 'videoLogsPanel'],
+      ['is-writings-open', 'writingsPanel'],
+      ['is-resume-open', 'resumePanel'],
+    ];
+
+    openMap.forEach(function (entry) {
+      if (html.classList.contains(entry[0])) {
+        const el = document.getElementById(entry[1]);
+        if (el) panels.push(el);
+      }
+    });
+
+    return panels;
+  };
+
+  const preparePanelWindowsForFall = function () {
+    getOpenPanelElements().forEach(function (panel) {
+      panel.style.transition = 'none';
+      panel.style.transform = '';
+    });
+
+    document.querySelectorAll('.about-window, .library-window, .resume-window').forEach(function (win) {
+      win.style.transition = 'none';
+      win.style.transform = 'none';
+      win.style.opacity = '';
+      win.style.willChange = 'auto';
+    });
+  };
+
+  const hideGameOverlays = function () {
+    document.querySelectorAll(
+      '.bowman-overlay, .bowman-stuck-layer, .bowman-target, .bowman-confetti-layer, .click-ripple-layer, .click-ripple'
+    ).forEach(function (el) {
+      el.style.display = 'none';
+      el.style.visibility = 'hidden';
+      el.style.pointerEvents = 'none';
+    });
+  };
+
+  const restoreGameOverlays = function () {
+    document.querySelectorAll('.bowman-overlay, .bowman-stuck-layer, .bowman-target, .bowman-confetti-layer').forEach(function (el) {
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.pointerEvents = '';
+    });
+    document.querySelectorAll('.click-ripple-layer').forEach(function (el) {
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.pointerEvents = '';
+    });
+  };
+
   const getTargetElements = function () {
-    return [
-      ...document.querySelectorAll('.site-header, .profile, .portfolio, .site-footer, .mobile-nav')
-    ].filter(Boolean);
+    const seen = new Set();
+    const add = function (el) {
+      if (el) seen.add(el);
+    };
+
+    document.querySelectorAll('.site-header, .site-footer, .mobile-nav').forEach(add);
+
+    const openPanels = getOpenPanelElements();
+    const isMobile = window.matchMedia('(max-width: 960px)').matches;
+
+    if (isMobile) {
+      document.querySelectorAll('.profile').forEach(add);
+      openPanels.forEach(add);
+      return [...seen];
+    }
+
+    document.querySelectorAll('.profile, .portfolio').forEach(add);
+    openPanels.forEach(add);
+
+    return [...seen];
   };
 
   const showScreen = function (screenNum) {
@@ -98,23 +173,31 @@
   const breakWebsite = function () {
     if (isBroken) return;
     isBroken = true;
-    breakBtn.style.display = 'none';
+    preparePanelWindowsForFall();
+    hideGameOverlays();
     document.body.classList.add('site-broken');
     document.documentElement.classList.add('site-broken');
 
     fallingElements = getTargetElements();
     fallingElements.forEach(function (el, index) {
+      el.style.transition = 'none';
       el.style.setProperty('--fall-rotation', (Math.random() - 0.5) * 60 + 'deg');
       setTimeout(function () {
+        el.style.transform = '';
         el.classList.add('gravity-fall');
       }, index * 80);
     });
 
+    const fallDuration = fallingElements.length * 80 + 2000;
     setTimeout(function () {
+      fallingElements.forEach(function (el) {
+        el.style.visibility = 'hidden';
+        el.style.pointerEvents = 'none';
+      });
       overlay.classList.add('active');
       overlay.setAttribute('aria-hidden', 'false');
       showScreen(1);
-    }, fallingElements.length * 80 + 2000);
+    }, fallDuration);
   };
 
   const goToScreen2 = function (choice) {
@@ -390,17 +473,27 @@
     screen1.classList.remove('active');
     screen2.classList.remove('active');
     screen3.classList.remove('active');
-    breakBtn.style.display = '';
     document.body.classList.remove('site-broken');
     document.documentElement.classList.remove('site-broken');
+    restoreGameOverlays();
+    preparePanelWindowsForFall();
 
     fallingElements.forEach(function (el, index) {
       el.classList.remove('gravity-fall');
       el.style.transform = '';
+      el.style.transition = '';
+      el.style.visibility = '';
+      el.style.pointerEvents = '';
       setTimeout(function () {
         el.classList.add('gravity-reset');
         setTimeout(function () { el.classList.remove('gravity-reset'); }, 600);
       }, index * 30);
+    });
+
+    document.querySelectorAll('.about-window, .library-window, .resume-window').forEach(function (win) {
+      win.style.transition = '';
+      win.style.transform = '';
+      win.style.opacity = '';
     });
 
     setTimeout(function () { isBroken = false; }, fallingElements.length * 30 + 600);

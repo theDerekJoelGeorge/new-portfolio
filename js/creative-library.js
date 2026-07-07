@@ -94,10 +94,26 @@
     }
   }
 
+  function getMobileCategoryHref(label, slug) {
+    const normalized = String(label || '').toLowerCase();
+    const slugValue = String(slug || '').trim().toLowerCase();
+    if (normalized.includes('photo') || slugValue === 'photo-logs') return 'creative-library.html?category=photo-logs';
+    if (normalized.includes('video') || slugValue === 'video-logs') return 'creative-library.html?category=video-logs';
+    if (normalized.includes('writing') || slugValue === 'writings') return 'creative-library.html?category=writings';
+    if (slugValue) return 'creative-library.html?category=' + encodeURIComponent(slugValue);
+    return '';
+  }
+
   function renderFolderMarkup(cat) {
     const label = escapeHtml(getCategoryLabel(cat));
     const slugRaw = cat.slug && String(cat.slug).trim() ? String(cat.slug).trim() : '';
-    const href = slugRaw ? `category.html?slug=${encodeURIComponent(slugRaw)}` : '#';
+    const mobileHref = getMobileCategoryHref(getCategoryLabel(cat), slugRaw);
+    const href =
+      window.matchMedia('(max-width: 960px)').matches && mobileHref
+        ? mobileHref
+        : slugRaw
+          ? `category.html?slug=${encodeURIComponent(slugRaw)}`
+          : '#';
     const tooltipText = cat['tool-tip text'] ? String(cat['tool-tip text']).trim() : '';
     const coverColor =
       cat.cover_color && /^#[0-9A-Fa-f]{6}$/.test(String(cat.cover_color).trim())
