@@ -27,10 +27,23 @@
   flex: 1;
   min-width: 0;
   max-width: 18.5rem;
+  --vibecoding-outer-radius: 0.5473rem;
+  --vibecoding-frame-padding: 0.35rem;
+}
+
+.vibecoding-card-home__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .vibecoding-card-home__title {
   margin: 0;
+  flex: 1;
+  min-width: 0;
   font-size: clamp(0.8125rem, 1.6dvh, 0.9375rem);
   font-weight: 700;
   line-height: 1.25;
@@ -41,8 +54,8 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  padding: clamp(0.55rem, 1.4dvh, 0.85rem);
-  border-radius: 1.1rem;
+  padding: var(--vibecoding-frame-padding);
+  border-radius: var(--vibecoding-outer-radius);
   background:
     radial-gradient(circle at 18% 22%, rgba(255, 120, 210, 0.95) 0%, transparent 42%),
     radial-gradient(circle at 78% 18%, rgba(120, 170, 255, 0.95) 0%, transparent 40%),
@@ -53,26 +66,24 @@
 }
 
 .vibecoding-card__badge {
-  position: absolute;
-  top: clamp(0.55rem, 1.2dvh, 0.75rem);
-  right: clamp(0.55rem, 1.2dvh, 0.75rem);
-  z-index: 2;
+  flex-shrink: 0;
+  margin-left: auto;
   padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   font-size: 0.5625rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.02em;
   color: #fff;
   background: rgba(18, 18, 18, 0.88);
-  pointer-events: none;
+  white-space: nowrap;
 }
 
 .vibecoding-card__frame {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 0.7rem;
+  border-radius: max(0.2rem, calc(var(--vibecoding-outer-radius) - var(--vibecoding-frame-padding)));
   overflow: hidden;
   background: rgba(0, 0, 0, 0.18);
   box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.18);
@@ -84,6 +95,12 @@
   height: 100%;
   object-fit: cover;
   background: #111;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.vibecoding-card__media.is-ready {
+  opacity: 1;
 }
 
 .vibecoding-card__media--fallback {
@@ -96,5 +113,47 @@
 @media (max-width: 960px) {
   .vibecoding-card-home {
     max-width: none;
+    --vibecoding-outer-radius: 0.5rem;
+    --vibecoding-frame-padding: 0.3rem;
   }
+}
+
+/* ── Mobile experiments page ── */
+
+.vibecoding-page__loading {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-gray-2, #aeaeb2);
+  animation: vibecoding-pulse 1.2s ease-in-out infinite;
+}
+
+.vibecoding-page__empty {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-gray-2, #aeaeb2);
+}
+
+.vibecoding-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.vibecoding-card-home--page {
+  max-width: none;
+  width: 100%;
+}
+
+.vibecoding-card-home--page .vibecoding-card-home__title {
+  font-size: clamp(0.875rem, 1.8dvh, 1rem);
+}
+
+.vibecoding-card-home--page .vibecoding-card__badge {
+  font-size: 0.625rem;
+  padding: 0.25rem 0.6rem;
+}
+
+.experiments-page .case-page__main {
+  padding-bottom: calc(clamp(5rem, 8dvh, 6rem) + var(--mobile-nav-chrome, 4.5rem));
 }

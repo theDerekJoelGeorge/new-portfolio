@@ -516,6 +516,26 @@ html.site-broken .click-ripple {
   min-height: 0;
 }
 
+.page > .resume-panel {
+  position: fixed;
+  inset: clamp(1rem, 3dvh, 2rem) clamp(1rem, 3vw, 2rem);
+  z-index: 150;
+  box-sizing: border-box;
+  background: var(--color-bg);
+  height: auto;
+}
+
+@media (max-width: 960px) {
+  .page > .resume-panel {
+    top: var(--mobile-header-chrome);
+    right: 0;
+    bottom: var(--mobile-nav-chrome);
+    left: 0;
+    padding: 0.5rem var(--desktop-pad-x);
+    inset: auto;
+  }
+}
+
 .resume-panel {
   display: block;
   height: 100%;

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/case-studies.css">
 </head>
 <body class="case-page">
@@ -29,6 +30,9 @@
         </a>
         <a href="#" class="social-link social-link--email" aria-label="Email" data-tooltip="send me an email">
           <i class="far fa-envelope" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="social-link social-link--resume" aria-label="Resume" data-tooltip="View my resume">
+          <i class="far fa-file-lines" aria-hidden="true"></i>
         </a>
       </nav>
     </header>
@@ -51,25 +55,31 @@
   <nav class="mobile-nav" aria-label="Mobile navigation">
     <a href="index.html" class="mobile-nav__link" aria-label="Home">
       <i class="fa-solid fa-house" aria-hidden="true"></i>
+      <span class="mobile-nav__label">Home</span>
     </a>
-    <a href="case-studies.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Case Studies">
+    <a href="case-studies.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Work">
       <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+      <span class="mobile-nav__label">Work</span>
     </a>
-    <a href="creative-library.html" class="mobile-nav__link" aria-label="Creative Library">
+    <a href="creative-library.html" class="mobile-nav__link" aria-label="Studio">
       <i class="fa-solid fa-palette" aria-hidden="true"></i>
+      <span class="mobile-nav__label">Studio</span>
     </a>
-    <a href="index.html#experiments-heading" class="mobile-nav__link" aria-label="Experiments">
+    <a href="experiments.html" class="mobile-nav__link" aria-label="Experiments">
       <i class="fa-solid fa-flask" aria-hidden="true"></i>
+      <span class="mobile-nav__label">Experiments</span>
     </a>
   </nav>
 
   <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">↑</button>
 
   <script src="js/social-links.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/supabase-dev-data.js"></script>
   <script src="js/supabase-cache.js"></script>
   <script src="js/supabase-storage.js"></script>
   <script src="js/case-studies.js"></script>
+  <script src="js/resume-modal.js"></script>
 </body>
 </html>

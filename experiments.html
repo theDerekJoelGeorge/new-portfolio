@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Derek Joel George's creative library — photography, video, design, and writing.">
+  <meta name="description" content="Vibecoding experiments by Derek Joel George — side projects and builds in progress.">
   <link rel="icon" href="images/logo-orange.png" type="image/png">
-  <title>Creative Library — Derek Joel George</title>
+  <title>Experiments — Derek Joel George</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
@@ -13,12 +13,11 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/case-studies.css">
   <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/creative-library.css">
-  <link rel="stylesheet" href="css/library-mobile.css">
+  <link rel="stylesheet" href="css/case-studies.css">
+  <link rel="stylesheet" href="css/vibecoding-experiments.css">
 </head>
-<body class="case-page library-page">
+<body class="case-page experiments-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <div class="page">
@@ -40,18 +39,9 @@
     </header>
 
     <main id="main-content" class="case-page__main">
-      <h1 class="page-title">My Creative Library</h1>
-      <p class="page-intro">A collection of my creative work.</p>
-
-      <div class="library-container" id="libraryContainer">
-        <div class="folders-grid" id="foldersGrid" aria-label="Category folders"></div>
-        <p class="library-loading" id="libraryLoading">Loading categories…</p>
-        <p class="library-empty" id="libraryEmpty" hidden>No categories yet.</p>
-      </div>
-
-      <div class="library-category-view" id="libraryCategoryView" hidden>
-        <div class="library-category-view__inner" id="libraryCategoryInner"></div>
-      </div>
+      <h1 class="page-title">My Experiments</h1>
+      <p class="page-intro">A collection of my explorations of vibecoding alongside my companion Cur Sir.</p>
+      <div id="vibecodingExperimentsList" class="vibecoding-page__loading" aria-live="polite">Loading experiments…</div>
     </main>
   </div>
 
@@ -64,11 +54,11 @@
       <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
       <span class="mobile-nav__label">Work</span>
     </a>
-    <a href="creative-library.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Studio">
+    <a href="creative-library.html" class="mobile-nav__link" aria-label="Studio">
       <i class="fa-solid fa-palette" aria-hidden="true"></i>
       <span class="mobile-nav__label">Studio</span>
     </a>
-    <a href="experiments.html" class="mobile-nav__link" aria-label="Experiments">
+    <a href="experiments.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page" aria-label="Experiments">
       <i class="fa-solid fa-flask" aria-hidden="true"></i>
       <span class="mobile-nav__label">Experiments</span>
     </a>
@@ -76,13 +66,11 @@
 
   <script src="js/social-links.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/supabase-dev-data.js"></script>
   <script src="js/supabase-cache.js"></script>
   <script src="js/supabase-storage.js"></script>
-  <script src="js/creative-library.js"></script>
-  <script src="js/library-mobile-page.js"></script>
+  <script src="js/vibecoding-experiments.js"></script>
   <script src="js/resume-modal.js"></script>
 </body>
 </html>

@@ -1,8 +1,46 @@
 (function () {
+  const RESUME_PANEL_HTML =
+    '<div class="resume-window">' +
+    '<div class="resume-window__titlebar">' +
+    '<div class="resume-window__controls" aria-label="Window controls">' +
+    '<button type="button" class="resume-window__dot resume-window__dot--close" id="resumeCloseBtn" aria-label="Close resume"></button>' +
+    '<button type="button" class="resume-window__dot resume-window__dot--minimize" id="resumeMinBtn" aria-label="Close resume"></button>' +
+    '<button type="button" class="resume-window__dot resume-window__dot--zoom" id="resumeZoomBtn" aria-label="Fullscreen resume"></button>' +
+    '</div>' +
+    '<p class="resume-window__title">derek-resume.pdf</p>' +
+    '<div class="resume-window__actions" aria-label="Resume actions">' +
+    '<a class="resume-window__download" href="assets/derek-resume.pdf" download>Download</a>' +
+    '</div>' +
+    '</div>' +
+    '<div class="resume-window__content">' +
+    '<div class="resume-window__pdf-scroll" id="resumePdfScroll" hidden></div>' +
+    '<iframe class="resume-window__pdf" id="resumePdfFrame" title="Derek resume" hidden scrolling="no"></iframe>' +
+    '</div>' +
+    '</div>';
+
+  function ensureResumePanel() {
+    var existing = document.getElementById('resumePanel');
+    if (existing) return existing;
+
+    var panel = document.createElement('aside');
+    panel.className = 'resume-panel';
+    panel.id = 'resumePanel';
+    panel.setAttribute('aria-label', 'Resume');
+    panel.innerHTML = RESUME_PANEL_HTML;
+
+    var page = document.querySelector('.page');
+    if (page) {
+      page.appendChild(panel);
+    } else {
+      document.body.appendChild(panel);
+    }
+
+    return panel;
+  }
+
   const resumeTrigger = document.querySelector('.social-link--resume');
   const logoTrigger = document.querySelector('.site-header__brand');
-  const portfolioPanel = document.getElementById('portfolioPanel');
-  const resumePanel = document.getElementById('resumePanel');
+  const resumePanel = ensureResumePanel();
   const resumeWindow = resumePanel ? resumePanel.querySelector('.resume-window') : null;
   const resumePdfFrame = document.getElementById('resumePdfFrame');
   const resumePdfScroll = document.getElementById('resumePdfScroll');
@@ -10,7 +48,7 @@
   const minBtn = document.getElementById('resumeMinBtn');
   const zoomBtn = document.getElementById('resumeZoomBtn');
 
-  if (!resumeTrigger || !portfolioPanel || !resumePanel || !resumeWindow) return;
+  if (!resumeTrigger || !resumePanel || !resumeWindow) return;
 
   const RESUME_PDF_URL = 'assets/derek-resume.pdf';
   const RESUME_PDF_HASH = '#toolbar=0&navpanes=0&scrollbar=0&view=Fit';

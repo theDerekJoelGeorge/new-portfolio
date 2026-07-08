@@ -63,69 +63,179 @@ async function fetchVibecodingExperiments(env, options) {
   );
 }
 
+function buildVibecodingCardHtml(row, options) {
+  const stickTarget = options && options.stickTarget;
+  const pageLayout = options && options.pageLayout;
+  const title = vibecodingEscapeHtml(row.title || 'Untitled experiment');
+  const status = String(row.status || '').toLowerCase();
+  const videoUrl = vibecodingResolveStorageUrl(row.hero_vid);
+  const badge =
+    status === 'building' ? '<span class="vibecoding-card__badge">coming soon</span>' : '';
+
+  const media = videoUrl
+    ? '<video class="vibecoding-card__media" src="' +
+      vibecodingEscapeHtml(videoUrl) +
+      '" autoplay muted loop playsinline preload="metadata" aria-label="' +
+      title +
+      ' preview"></video>'
+    : '<span class="vibecoding-card__media vibecoding-card__media--fallback" aria-hidden="true"></span>';
+
+  const articleClass = pageLayout
+    ? 'vibecoding-card-home vibecoding-card-home--page'
+    : 'vibecoding-card-home';
+  const stickAttr = stickTarget ? ' data-stick-target' : '';
+
+  return (
+    '<article class="' +
+    articleClass +
+    '"' +
+    stickAttr +
+    '>' +
+    '<div class="vibecoding-card">' +
+    '<div class="vibecoding-card__frame">' +
+    media +
+    '</div>' +
+    '</div>' +
+    '<div class="vibecoding-card-home__meta">' +
+    '<h3 class="vibecoding-card-home__title">' +
+    title +
+    '</h3>' +
+    badge +
+    '</div>' +
+    '</article>'
+  );
+}
+
+function vibecodingRowsSignature(rows) {
+  return JSON.stringify(
+    (rows || []).map(function (row) {
+      return {
+        id: row.id,
+        title: row.title,
+        status: row.status,
+        hero_vid: row.hero_vid,
+        sort_order: row.sort_order,
+      };
+    })
+  );
+}
+
+function readCachedVibecodingRows() {
+  try {
+    var raw = localStorage.getItem('portfolio:supabase:vibecoding:list');
+    if (!raw) return null;
+    var entry = JSON.parse(raw);
+    var version =
+      window.SUPABASE_CACHE_VERSION != null ? String(window.SUPABASE_CACHE_VERSION) : '1';
+    if (!entry || entry.version !== version || !Array.isArray(entry.data)) return null;
+    return entry.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+function clearVibecodingLoadingState(container) {
+  if (!container) return;
+  container.classList.remove('vibecoding-page__loading', 'vibecoding-home__loading');
+}
+
+function wireVibecodingVideos(container) {
+  if (!container) return;
+  container.querySelectorAll('video.vibecoding-card__media').forEach(function (video) {
+    if (video.dataset.vibecodingWired === 'true') return;
+    video.dataset.vibecodingWired = 'true';
+
+    function markReady() {
+      video.classList.add('is-ready');
+    }
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      markReady();
+      return;
+    }
+
+    video.addEventListener('loadeddata', markReady, { once: true });
+  });
+}
+
 function renderVibecodingExperimentsRow(container, rows) {
   if (!rows || !rows.length) {
+    clearVibecodingLoadingState(container);
     container.innerHTML = '<p class="vibecoding-home__empty">No experiments yet.</p>';
+    container.dataset.vibecodingSig = '';
     return;
   }
 
-  const cards = rows
+  var signature = vibecodingRowsSignature(rows);
+  if (container.dataset.vibecodingSig === signature) return;
+
+  clearVibecodingLoadingState(container);
+  container.dataset.vibecodingSig = signature;
+  container.innerHTML = rows
     .map(function (row) {
-      const title = vibecodingEscapeHtml(row.title || 'Untitled experiment');
-      const status = String(row.status || '').toLowerCase();
-      const videoUrl = vibecodingResolveStorageUrl(row.hero_vid);
-      const badge =
-        status === 'building'
-          ? '<span class="vibecoding-card__badge">coming soon</span>'
-          : '';
-
-      const media = videoUrl
-        ? '<video class="vibecoding-card__media" src="' +
-          vibecodingEscapeHtml(videoUrl) +
-          '" autoplay muted loop playsinline preload="metadata" aria-label="' +
-          title +
-          ' preview"></video>'
-        : '<span class="vibecoding-card__media vibecoding-card__media--fallback" aria-hidden="true"></span>';
-
-      return (
-        '<article class="vibecoding-card-home" data-stick-target>' +
-        '<div class="vibecoding-card">' +
-        badge +
-        '<div class="vibecoding-card__frame">' +
-        media +
-        '</div>' +
-        '</div>' +
-        '<h3 class="vibecoding-card-home__title">' +
-        title +
-        '</h3>' +
-        '</article>'
-      );
+      return buildVibecodingCardHtml(row, { stickTarget: true });
     })
     .join('');
+  wireVibecodingVideos(container);
+}
 
-  container.innerHTML = cards;
+function renderVibecodingExperimentsPage(container, rows) {
+  if (!rows || !rows.length) {
+    clearVibecodingLoadingState(container);
+    container.innerHTML = '<p class="vibecoding-page__empty">No experiments yet.</p>';
+    container.dataset.vibecodingSig = '';
+    return;
+  }
+
+  var signature = vibecodingRowsSignature(rows);
+  if (container.dataset.vibecodingSig === signature) return;
+
+  clearVibecodingLoadingState(container);
+  container.dataset.vibecodingSig = signature;
+  container.innerHTML =
+    '<div class="vibecoding-page__list">' +
+    rows
+      .map(function (row) {
+        return buildVibecodingCardHtml(row, { pageLayout: true });
+      })
+      .join('') +
+    '</div>';
+  wireVibecodingVideos(container);
 }
 
 async function initVibecodingExperiments() {
   const env = vibecodingMustGetEnv();
-  const row = document.getElementById('vibecodingExperimentsRow');
-  if (!row) return;
+  const homeRow = document.getElementById('vibecodingExperimentsRow');
+  const mobileList = document.getElementById('vibecodingExperimentsList');
+  if (!homeRow && !mobileList) return;
 
   if (!env.url || !env.key) {
-    row.innerHTML = '<p class="vibecoding-home__empty">Supabase is not configured.</p>';
+    const message = '<p class="vibecoding-home__empty">Supabase is not configured.</p>';
+    if (homeRow) homeRow.innerHTML = message;
+    if (mobileList) mobileList.innerHTML = message;
     return;
   }
 
   try {
+    var cachedRows = readCachedVibecodingRows();
+    if (cachedRows) {
+      if (homeRow) renderVibecodingExperimentsRow(homeRow, cachedRows);
+      if (mobileList) renderVibecodingExperimentsPage(mobileList, cachedRows);
+    }
+
     const rows = await fetchVibecodingExperiments(env, {
       onRevalidate: function (freshRows) {
-        renderVibecodingExperimentsRow(row, freshRows);
+        if (homeRow) renderVibecodingExperimentsRow(homeRow, freshRows);
+        if (mobileList) renderVibecodingExperimentsPage(mobileList, freshRows);
       },
     });
-    renderVibecodingExperimentsRow(row, rows);
+    if (homeRow) renderVibecodingExperimentsRow(homeRow, rows);
+    if (mobileList) renderVibecodingExperimentsPage(mobileList, rows);
   } catch (err) {
     console.error('[vibecoding]', err);
-    row.innerHTML = '<p class="vibecoding-home__empty">Could not load experiments.</p>';
+    const message = '<p class="vibecoding-home__empty">Could not load experiments.</p>';
+    if (homeRow) homeRow.innerHTML = message;
+    if (mobileList) mobileList.innerHTML = message;
   }
 }
 
