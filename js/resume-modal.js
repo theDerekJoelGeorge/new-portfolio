@@ -20,9 +20,9 @@
   let isAnimating = false;
   let pdfRenderToken = 0;
 
-  function isSafari() {
-    const ua = navigator.userAgent;
-    return /Safari/.test(ua) && !/Chromium|Chrome|CriOS|EdgiOS|Edg|OPR|FxiOS|Firefox/.test(ua);
+  if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
 
   function clearResumePdf() {
@@ -47,9 +47,6 @@
     resumePdfScroll.hidden = false;
 
     if (resumePdfFrame) resumePdfFrame.hidden = true;
-
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
     try {
       const pdf = await pdfjsLib.getDocument(RESUME_PDF_URL).promise;
@@ -87,10 +84,15 @@
   async function loadResumePdf() {
     clearResumePdf();
 
-    if (isSafari()) {
-      const rendered = await renderResumePdfWithPdfJs();
-      if (rendered) return;
-    }
+    // Wait for the open panel to finish layout before measuring the PDF viewport.
+    await new Promise(function (resolve) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(resolve);
+      });
+    });
+
+    const rendered = await renderResumePdfWithPdfJs();
+    if (rendered) return;
 
     if (!resumePdfFrame) return;
 

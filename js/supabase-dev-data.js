@@ -44,6 +44,16 @@
 
   window.SUPABASE_DEV_VIDEO_LOGS = [];
 
+  window.SUPABASE_DEV_VIBECODING_EXPERIMENTS = [
+    {
+      id: 'dev-vibecoding-1',
+      title: 'Reworking this portfolio',
+      status: 'building',
+      hero_vid: '',
+      sort_order: 0,
+    },
+  ];
+
   window.SUPABASE_DEV_WRITINGS = [
     {
       id: 'dev-writing-1',
@@ -67,5 +77,21 @@
     return window.SUPABASE_DEV_PROJECTS.find(function (p) {
       return p.slug === slug;
     }) || null;
+  };
+
+  window.SUPABASE_DEV_ABOUT_ME = {
+    'description 1':
+      "I'm Derek, a Product Designer who has recently graduated from The University of Queensland with a Master of Interaction Design.",
+    'paragraph 2':
+      'I studied Electronics and Communication Engineering and worked as an analyst at Capgemini before moving to Australia. That structured way of thinking helped, but I wanted to work closer to the human side of products — which led me to HCI and UX/UI design.',
+    'paragraph 3':
+      'At UQ I learned to defend design decisions with research, not just taste. That discipline still shapes how I approach messy problems today.',
+    'paragraph 4':
+      'Right now I am building depth as a product designer — stronger research, sharper systems thinking, and more shipped work I can point to.',
+    'paragraph 5':
+      'Outside of work, I am usually behind a camera, tinkering with side projects, or hunting down good coffee around Brisbane.',
+    'tldr-1': 'TL;DR — Engineering brain, design heart, Brisbane based.',
+    'tldr-2': 'TL;DR — Always making things and asking too many questions.',
+    'Hero Image': 'images/avatar.png'
   };
 })();

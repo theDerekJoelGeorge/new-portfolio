@@ -8,14 +8,16 @@
   <title>Derek Joel George — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Libre+Barcode+128+Text&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Libre+Barcode+128+Text&family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/home.css">
+  <!-- Rap or Crap (disabled) — uncomment css/rap-or-crap.css, js/rap-or-crap.js, and game markup below to re-enable -->
   <link rel="stylesheet" href="css/library-mobile.css">
   <link rel="stylesheet" href="css/case-studies.css">
+  <link rel="stylesheet" href="css/vibecoding-experiments.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -26,10 +28,10 @@
         <img src="images/logo-orange.png" alt="" class="site-header__logo" id="bowmanArcherAnchor" width="38" height="30">
       </a>
       <nav class="site-header__social" aria-label="Social links">
-        <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" data-tooltip="stalk me on Linkedin">
           <i class="fab fa-linkedin-in" aria-hidden="true"></i>
         </a>
-        <a href="mailto:hello@example.com" class="social-link" aria-label="Email">
+        <a href="#" class="social-link social-link--email" aria-label="Email" data-tooltip="send me an email">
           <i class="far fa-envelope" aria-hidden="true"></i>
         </a>
         <a href="#" class="social-link social-link--resume" aria-label="Resume" data-tooltip="View my resume">
@@ -55,7 +57,7 @@
             <div class="profile__name-row">
               <div class="profile__name-block">
                 <div class="profile__name-wrap">
-                  <h1 id="profile-name" class="profile__name" data-stick-target>derekjoelgeorge</h1>
+                  <h1 id="profile-name" class="profile__name" data-stick-target data-tooltip="press the i to know more about me">derekjoelgeorge</h1>
                   <button type="button" class="info-btn" id="aboutInfoBtn" aria-label="About me" aria-expanded="false" aria-controls="aboutPanel">i</button>
                 </div>
                 <p class="profile__tagline">User Experience Designer<span class="profile__tagline-extra"> | Avid Vibe Coder</span></p>
@@ -66,15 +68,15 @@
           <span class="sr-only">User experience designer</span>
         </div>
 
-        <p class="profile__bio">I like turning messy ideas and complex requirements into structured, user-friendly experiences.</p>
+        <p class="profile__bio">I like turning messy ideas and complex requirements into structured, user-friendly experiences. Currently on the hunt for a full time role :)</p>
 
         <dl class="profile__timeline">
           <dt class="profile__timeline-date" data-stick-target>2026</dt>
-          <dd class="profile__timeline-detail">UX Designer <span class="regular">at</span> <a href="#">Dunstan Consulting Group</a></dd>
+          <dd class="profile__timeline-detail">UX Designer <span class="regular">at</span> <a href="https://www.dunstanconsultinggroup.com/">Dunstan Consulting Group</a></dd>
           <dt class="profile__timeline-date" data-stick-target>2023-2025</dt>
           <dd class="profile__timeline-detail">HCI Grad <span class="regular">from</span> <a href="https://www.uq.edu.au/">University of Queensland</a></dd>
           <dt class="profile__timeline-date" id="timelineYear2021" data-stick-target><span class="profile__timeline-year-anchor">2021</span>-2023</dt>
-          <dd class="profile__timeline-detail">Analyst <span class="regular">from</span> <a href="#">Capgemini India</a></dd>
+          <dd class="profile__timeline-detail">Analyst <span class="regular">from</span> <a href="https://www.capgemini.com/in-en/">Capgemini India</a></dd>
         </dl>
       </section>
 
@@ -135,15 +137,32 @@
 
           <section class="portfolio__block" aria-labelledby="experiments-heading">
             <h2 id="experiments-heading" class="portfolio__section-title">my vibecoding experiments //</h2>
-            <div class="card-row">
-              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
-              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
-              <div class="card-placeholder" data-stick-target aria-hidden="true"></div>
+            <div class="card-row" id="vibecodingExperimentsRow" aria-live="polite">
+              <div class="card-placeholder vibecoding-home__loading" data-stick-target aria-hidden="true"></div>
             </div>
           </section>
         </div>
 
         <aside class="about-panel" id="aboutPanel" aria-label="About me">
+          <div class="about-mobile-page" id="aboutMobilePage" hidden>
+            <div class="about-mobile-page__scroll" id="aboutMobileScroll">
+              <div class="about-mobile-page__inner">
+                <nav class="library-mobile-breadcrumbs about-mobile-page__breadcrumbs" aria-label="Breadcrumb">
+                  <ol class="library-mobile-breadcrumbs__list">
+                    <li>
+                      <button type="button" class="library-mobile-breadcrumbs__link about-mobile-page__breadcrumb-home" id="aboutMobileHomeBreadcrumb">Home</button>
+                    </li>
+                    <li class="about-mobile-page__breadcrumb-sep" aria-hidden="true">/</li>
+                    <li><span class="library-mobile-breadcrumbs__current">About Me</span></li>
+                  </ol>
+                </nav>
+                <h1 class="about-mobile-page__title">About Me</h1>
+                <p class="about-mobile-page__status" id="aboutMobileStatus">Loading…</p>
+                <div class="about-mobile-page__content" id="aboutMobileContent" hidden></div>
+              </div>
+            </div>
+          </div>
+
           <div class="about-window">
             <header class="about-window__header">
               <div class="about-window__header-start">
@@ -176,13 +195,88 @@
                 <div class="about-chat__viewport" id="aboutChatViewport">
                   <p class="about-chat__date">Today</p>
                   <div class="about-chat__messages" id="aboutChatMessages" role="log" aria-live="polite" aria-relevant="additions"></div>
-                  <p class="about-chat__prompt" id="aboutChatPrompt">Pick a question to ask</p>
-                  <div class="about-chat__suggestions" id="aboutChatSuggestions" role="group" aria-label="Suggested questions"></div>
+                  <div class="about-chat__picker" id="aboutChatPicker">
+                    <p class="about-chat__prompt" id="aboutChatPrompt">Pick a question to ask</p>
+                    <div class="about-chat__suggestions" id="aboutChatSuggestions" role="group" aria-label="Suggested questions"></div>
+                  </div>
                 </div>
-                <div class="about-chat__scrollbar" aria-hidden="true">
-                  <div class="about-chat__scrollbar-track"></div>
-                  <div class="about-chat__scrollbar-thumb" id="aboutScrollbarThumb"></div>
+
+                <!-- Rap or Crap game (disabled)
+                <div id="rapOrCrapGamePark" hidden aria-hidden="true">
+                  <div class="rapor-crap-game" id="rapOrCrapGame" hidden aria-hidden="true">
+                  <div class="rapor-crap-window" role="dialog" aria-modal="true" aria-labelledby="rapOrCrapTitle">
+                    <header class="rapor-crap-window__titlebar">
+                      <div class="rapor-crap-window__controls" aria-label="Window controls">
+                        <button type="button" class="library-window__dot library-window__dot--close" id="rapOrCrapCloseBtn" aria-label="Close game"></button>
+                        <button type="button" class="library-window__dot library-window__dot--minimize" id="rapOrCrapMinBtn" aria-label="Close game"></button>
+                        <button type="button" class="library-window__dot library-window__dot--zoom" id="rapOrCrapZoomBtn" aria-label="Fullscreen game" aria-pressed="false" hidden></button>
+                      </div>
+                      <p class="rapor-crap-window__title" id="rapOrCrapTitle">bars.exe</p>
+                    </header>
+
+                    <div class="rapor-crap-window__body">
+                      <section class="rapor-crap-screen rapor-crap-screen--splash is-active" data-screen="splash" aria-label="Title screen">
+                        <h2 class="rapor-crap-screen__logo" aria-hidden="true">
+                          <span class="rapor-crap-screen__logo-rap">RAP</span><span class="rapor-crap-screen__logo-or">or</span><span class="rapor-crap-screen__logo-crap">CR P</span>
+                        </h2>
+                        <p class="rapor-crap-screen__hint">click anywhere to continue</p>
+                      </section>
+
+                      <section class="rapor-crap-screen rapor-crap-screen--rules" data-screen="rules" aria-label="Rules" hidden>
+                        <h3 class="rapor-crap-screen__rules-heading">RULES</h3>
+                        <p class="rapor-crap-screen__rules-lead">Read the verse and decide between the two options</p>
+                        <div class="rapor-crap-screen__rules-cards">
+                          <div class="rapor-crap-screen__rules-card rapor-crap-screen__rules-card--rap">
+                            <span class="rapor-crap-screen__rules-card-label">RAP</span>
+                            <span class="rapor-crap-screen__rules-card-desc">A real rap lyric</span>
+                          </div>
+                          <div class="rapor-crap-screen__rules-card rapor-crap-screen__rules-card--crap">
+                            <span class="rapor-crap-screen__rules-card-label">CR*P</span>
+                            <span class="rapor-crap-screen__rules-card-desc">One of my unreleased notes</span>
+                          </div>
+                        </div>
+                        <p class="rapor-crap-screen__hint">press anywhere to continue</p>
+                      </section>
+
+                      <section class="rapor-crap-screen rapor-crap-screen--round" data-screen="round" aria-label="Round" hidden>
+                        <div class="rapor-crap-screen__hud">
+                          <span class="rapor-crap-screen__round" id="rapOrCrapRound">01</span>
+                          <span class="rapor-crap-screen__score-label">score</span>
+                        </div>
+                        <p class="rapor-crap-screen__lyric" id="rapOrCrapLyric"></p>
+                        <div class="rapor-crap-screen__choices">
+                          <button type="button" class="rapor-crap-screen__choice rapor-crap-screen__choice--rap" data-guess="rap">RAP</button>
+                          <button type="button" class="rapor-crap-screen__choice rapor-crap-screen__choice--crap" data-guess="crap">CR*P</button>
+                        </div>
+                      </section>
+
+                      <section class="rapor-crap-screen rapor-crap-screen--reveal" data-screen="reveal" aria-label="Answer reveal" hidden>
+                        <div class="rapor-crap-screen__hud">
+                          <span class="rapor-crap-screen__round" id="rapOrCrapRevealRound">01</span>
+                          <span class="rapor-crap-screen__score-label">score</span>
+                        </div>
+                        <p class="rapor-crap-screen__reveal-lead">and the answer is</p>
+                        <div class="rapor-crap-screen__reveal-main" id="rapOrCrapRevealMain">
+                          <p class="rapor-crap-screen__reveal-answer" id="rapOrCrapRevealAnswer"></p>
+                          <div class="rapor-crap-screen__reveal-meta" id="rapOrCrapRevealMeta" hidden>
+                            <p class="rapor-crap-screen__reveal-song" id="rapOrCrapRevealSong"></p>
+                            <div class="rapor-crap-screen__spotify" id="rapOrCrapSpotify"></div>
+                          </div>
+                        </div>
+                        <p class="rapor-crap-screen__hint">click anywhere to continue</p>
+                      </section>
+
+                      <section class="rapor-crap-screen rapor-crap-screen--finished" data-screen="finished" aria-label="Game over" hidden>
+                        <h3 class="rapor-crap-screen__finished-heading">FINISHED</h3>
+                        <p class="rapor-crap-screen__finished-score">You scored <span id="rapOrCrapFinalScore">0</span> / <span id="rapOrCrapTotalRounds">0</span></p>
+                        <p class="rapor-crap-screen__finished-note" id="rapOrCrapFinishedNote"></p>
+                        <button type="button" class="rapor-crap-screen__play-btn" id="rapOrCrapReplayBtn">PLAY AGAIN</button>
+                      </section>
+                    </div>
+                  </div>
+                  </div>
                 </div>
+                -->
               </div>
             </div>
 
@@ -435,6 +529,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="js/break-website.js"></script>
+  <script src="js/social-links.js"></script>
   <script src="js/footer-game-hub.js"></script>
   <!-- Runner paused while Bowman is in testing — restore js/footer-runner.js when ready -->
   <!-- <script src="js/footer-runner.js"></script> -->
@@ -447,8 +542,11 @@
   <script src="js/supabase-cache.js"></script>
   <script src="js/supabase-storage.js"></script>
   <script src="js/case-studies.js"></script>
+  <script src="js/vibecoding-experiments.js"></script>
   <script src="js/resume-modal.js"></script>
+  <script src="js/about-mobile.js"></script>
   <script src="js/about-chat.js"></script>
+  <!-- <script src="js/rap-or-crap.js"></script> -->
   <script src="js/library-panels.js"></script>
   <script src="js/writings-panel.js"></script>
 </body>

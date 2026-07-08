@@ -1,0 +1,409 @@
+/* Rap or Crap — bars.exe mini-game (inline in chat viewport) */
+
+.about-chat__picker[hidden] {
+  display: none !important;
+}
+
+.about-chat__game-wrap {
+  width: 100%;
+  max-width: 33.9375rem;
+  margin: 1.5rem auto 0;
+  padding-bottom: 0.5rem;
+}
+
+.rapor-crap-game {
+  position: relative;
+  width: 100%;
+  max-width: 33.9375rem;
+  pointer-events: none;
+}
+
+.rapor-crap-game:not([hidden]) {
+  pointer-events: auto;
+}
+
+.rapor-crap-window {
+  width: 100%;
+  height: 16.25rem;
+  background: #141414;
+  border: 1px solid #aeaeb2;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.rapor-crap-window__titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.875rem;
+  flex-shrink: 0;
+  padding: 0 0.75rem;
+}
+
+.rapor-crap-window__controls {
+  position: absolute;
+  left: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.25rem;
+}
+
+.rapor-crap-window__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.rapor-crap-window__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.rapor-crap-screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 0 1.5rem 1rem;
+}
+
+.rapor-crap-screen.is-active {
+  display: block;
+}
+
+.rapor-crap-screen--splash,
+.rapor-crap-screen--rules,
+.rapor-crap-screen--reveal {
+  cursor: pointer;
+}
+
+.rapor-crap-screen__logo {
+  margin: 2.75rem 0 0;
+  font-family: 'Micro 5', var(--font-display);
+  font-size: clamp(4.5rem, 14vw, 6.9375rem);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.rapor-crap-screen__logo-rap {
+  color: #d9d9d9;
+}
+
+.rapor-crap-screen__logo-or {
+  color: #fff;
+}
+
+.rapor-crap-screen__logo-crap {
+  color: #59595e;
+}
+
+.rapor-crap-screen__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  margin: 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.625rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.rapor-crap-screen--rules.is-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.rapor-crap-screen__rules-heading {
+  margin: 1.5rem 0 0;
+  font-family: 'Micro 5', var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  color: #eb8b01;
+}
+
+.rapor-crap-screen__rules-lead {
+  margin: 0.75rem auto 0;
+  max-width: 22.5rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  text-align: center;
+  color: #fff;
+}
+
+.rapor-crap-screen__rules-cards {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.rapor-crap-screen__rules-card {
+  width: 11.75rem;
+  height: 5.25rem;
+  border-radius: 1.044rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.rapor-crap-screen__rules-card--rap {
+  background: #d9d9d9;
+  color: #59595e;
+}
+
+.rapor-crap-screen__rules-card--crap {
+  background: #59595e;
+  color: #fff;
+}
+
+.rapor-crap-screen__rules-card-label {
+  font-family: 'Micro 5', var(--font-display);
+  font-size: 3.481rem;
+  line-height: 1;
+}
+
+.rapor-crap-screen__rules-card-desc {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.625rem;
+  line-height: 1.2;
+}
+
+.rapor-crap-screen__play-btn {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.15rem;
+  padding: 0.35rem 1.125rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #eb8b01;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.rapor-crap-screen__play-btn:hover,
+.rapor-crap-screen__play-btn:focus-visible {
+  background: #ff8d28;
+}
+
+.rapor-crap-screen__hud {
+  position: absolute;
+  top: 0.35rem;
+  right: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.rapor-crap-screen__round {
+  font-family: 'Micro 5', var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: #eb8b01;
+}
+
+.rapor-crap-screen__score-label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: lowercase;
+}
+
+.rapor-crap-screen__lyric {
+  margin: 4rem auto 0;
+  max-width: 22.5rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+  color: #fff;
+  white-space: pre-line;
+}
+
+.rapor-crap-screen__choices {
+  position: absolute;
+  left: 50%;
+  bottom: 1.35rem;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.35rem;
+  width: min(100%, 24rem);
+  justify-content: center;
+}
+
+.rapor-crap-screen__choice {
+  flex: 1;
+  max-width: 11.75rem;
+  height: 2.625rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: 'Micro 5', var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.rapor-crap-screen__choice:hover,
+.rapor-crap-screen__choice:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.rapor-crap-screen__choice--rap {
+  background: #d9d9d9;
+  color: #59595e;
+}
+
+.rapor-crap-screen__choice--crap {
+  background: #59595e;
+  color: #fff;
+}
+
+.rapor-crap-screen__reveal-lead {
+  margin: 3.25rem auto 0;
+  max-width: 22.5rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #fff;
+}
+
+.rapor-crap-screen__reveal-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  min-height: 7rem;
+}
+
+.rapor-crap-screen__reveal-main--crap {
+  justify-content: center;
+}
+
+.rapor-crap-screen__reveal-answer {
+  margin: 0;
+  font-family: 'Micro 5', var(--font-display);
+  font-size: clamp(4rem, 12vw, 7rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.rapor-crap-screen__reveal-answer--rap {
+  color: #fff;
+}
+
+.rapor-crap-screen__reveal-answer--crap {
+  color: #59595e;
+}
+
+.rapor-crap-screen__reveal-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: min(100%, 11.5rem);
+  max-width: 11.5rem;
+  flex-shrink: 0;
+}
+
+.rapor-crap-screen__reveal-song {
+  margin: 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.rapor-crap-screen__spotify {
+  width: 100%;
+  height: 5rem;
+  border-radius: 0.75rem;
+  background: #121212;
+  overflow: hidden;
+}
+
+.rapor-crap-screen__spotify iframe {
+  display: block;
+  width: 100%;
+  height: 5rem;
+  border: 0;
+}
+
+.rapor-crap-screen__spotify-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.4375rem;
+  padding: 0.25rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.527rem;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+
+.rapor-crap-screen__finished-heading {
+  margin: 2.5rem 0 0;
+  font-family: 'Micro 5', var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  text-align: center;
+  color: #eb8b01;
+}
+
+.rapor-crap-screen__finished-score {
+  margin: 0.75rem 0 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.875rem;
+  text-align: center;
+  color: #fff;
+}
+
+.rapor-crap-screen__finished-note {
+  margin: 0.5rem auto 0;
+  max-width: 20rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.625rem;
+  line-height: 1.4;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.rapor-crap-screen--finished .rapor-crap-screen__play-btn {
+  position: static;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+@media (max-width: 960px) {
+  .rapor-crap-game {
+    display: none !important;
+  }
+}

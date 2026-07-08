@@ -1,6 +1,6 @@
 :root {
   --color-text: #1e1e1e;
-  --color-bg: #ffffff;
+  --color-bg: #f5f5f5;
   --color-border: #d9d9d9;
   --color-card: #d9d9d9;
   --color-library-bg: #d9d9d9;
@@ -15,11 +15,16 @@
   --frame-max: 90rem;
   --desktop-pad-x: 8.25rem;
   --desktop-pad-y: 3.5625rem;
+
+  --scrollbar-size: 4px;
+  --scrollbar-track: #1e1e1e;
+  --scrollbar-thumb: #005179;
 }
 
 html {
   font-size: 16px;
   height: 100%;
+  background: var(--color-bg);
 }
 
 body {
@@ -29,6 +34,37 @@ body {
   background: var(--color-bg);
   overflow: hidden;
   height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
 }
 
 .skip-link {
@@ -66,7 +102,19 @@ body {
     pointer-events: none !important;
   }
 
-  .social-link--resume::after {
+  .social-link[data-tooltip]::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .social-link[data-tooltip].is-feedback-visible::after {
+    content: attr(data-tooltip) !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .profile__name[data-tooltip]::after {
     content: none !important;
     display: none !important;
   }

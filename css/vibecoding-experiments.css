@@ -1,0 +1,100 @@
+/* ── Vibecoding experiments (home portfolio row) ── */
+
+.vibecoding-home__empty {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-gray-2, #aeaeb2);
+}
+
+.vibecoding-home__loading {
+  animation: vibecoding-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes vibecoding-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.vibecoding-card-home {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+  max-width: 18.5rem;
+}
+
+.vibecoding-card-home__title {
+  margin: 0;
+  font-size: clamp(0.8125rem, 1.6dvh, 0.9375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.vibecoding-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: clamp(0.55rem, 1.4dvh, 0.85rem);
+  border-radius: 1.1rem;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 120, 210, 0.95) 0%, transparent 42%),
+    radial-gradient(circle at 78% 18%, rgba(120, 170, 255, 0.95) 0%, transparent 40%),
+    radial-gradient(circle at 52% 88%, rgba(170, 95, 255, 0.95) 0%, transparent 44%),
+    linear-gradient(135deg, #8f63ff 0%, #ff6ec7 48%, #5f9dff 100%);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.vibecoding-card__badge {
+  position: absolute;
+  top: clamp(0.55rem, 1.2dvh, 0.75rem);
+  right: clamp(0.55rem, 1.2dvh, 0.75rem);
+  z-index: 2;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: rgba(18, 18, 18, 0.88);
+  pointer-events: none;
+}
+
+.vibecoding-card__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.18);
+}
+
+.vibecoding-card__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111;
+}
+
+.vibecoding-card__media--fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #1f1f1f 0%, #0d0d0d 100%);
+}
+
+@media (max-width: 960px) {
+  .vibecoding-card-home {
+    max-width: none;
+  }
+}

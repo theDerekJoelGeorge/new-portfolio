@@ -5,8 +5,9 @@
   const aboutWindow = aboutPanel ? aboutPanel.querySelector('.about-window') : null;
   const messagesEl = document.getElementById('aboutChatMessages');
   const suggestionsEl = document.getElementById('aboutChatSuggestions');
+  const promptEl = document.getElementById('aboutChatPrompt');
+  const pickerEl = document.getElementById('aboutChatPicker');
   const viewportEl = document.getElementById('aboutChatViewport');
-  const scrollbarThumb = document.getElementById('aboutScrollbarThumb');
   const logoTrigger = document.querySelector('.site-header__brand');
   const chatTab = document.getElementById('aboutChatTab');
   const galleryTab = document.getElementById('aboutGalleryTab');
@@ -14,8 +15,16 @@
   const galleryPanel = document.getElementById('aboutGalleryPanel');
   const galleryGrid = document.getElementById('aboutGalleryGrid');
   const galleryStatus = document.getElementById('aboutGalleryStatus');
+  const aboutTable = window.SUPABASE_ABOUT_ME_TABLE || 'about_me';
+
+  const mobileAboutPage = document.getElementById('aboutMobilePage');
+  const MOBILE_MQ = window.matchMedia('(max-width: 960px)');
 
   if (!infoBtn || !aboutPanel || !aboutWindow || !messagesEl || !suggestionsEl || !viewportEl) return;
+
+  function isMobileAboutView() {
+    return MOBILE_MQ.matches;
+  }
 
   const GALLERY_IMAGE_FIELDS = [
     'Hero Image',
@@ -39,8 +48,10 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TRANSITION_MS = 260;
   const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
-  const TYPING_MS = prefersReducedMotion ? 0 : 1400;
-  const BUBBLE_GAP_MS = prefersReducedMotion ? 0 : 500;
+  const TYPING_MS = prefersReducedMotion ? 0 : 2400;
+
+  // Set to true to re-enable Rap or Crap in the about chat.
+  const RAP_OR_CRAP_ENABLED = false;
 
   const INTRO_MESSAGE =
     "Hi, I'm Derek — a Product Designer based in Brisbane, with a Master of Interaction Design from The University of Queensland. I enjoy turning messy problems into thoughtful, human-centered digital experiences.";
@@ -56,26 +67,27 @@
     },
     {
       id: 'switch-design',
-      question: 'Why did you switch to  Product Design ?',
+      question: 'Why did you switch to product design ?',
       responses: [
-        'I kept noticing that the products I used every day were shaped as much by design decisions as by engineering ones — and I wanted to be the person making those human-facing calls.',
-        'Moving into interaction design let me combine analytical thinking with empathy, research, and craft in a way engineering alone never quite satisfied.'
+        'What really drew me to product design was the opportunity to combine creativity with problem-solving. It allowed me to use my technical background while focusing on designing solutions that are intuitive, meaningful, and user-centered.',
+        "I realized I enjoyed understanding users' needs, simplifying complex problems, and creating experiences that genuinely improve people's lives."
       ]
     },
     {
       id: 'uq-proud',
       question: 'What are you proud of from your time at UQ?',
       responses: [
-        'Leading a capstone project that went from messy stakeholder brief to a tested prototype students actually wanted to use.',
-        'UQ pushed me to defend design decisions with research, not just taste — that discipline still shapes how I work.'
+        "I'm most proud of how much I grew during my time at UQ. I transitioned from a software engineering background into product design and developed strong skills in UX research, prototyping, and user-centered design through several industry-style projects.",
+        "I'm also proud of my involvement with the Association of Postgraduate Students, where I took on leadership roles and helped organize events and support the postgraduate community. Those experiences taught me not only how to design better products but also how to communicate, collaborate, and lead teams effectively.",
+        "Looking back, I'm most proud that I didn't just graduate with a Master's degree, I graduated as a more well-rounded designer, collaborator, and leader."
       ]
     },
     {
       id: 'masters-worth',
       question: "Was the master's degree worth it ?",
       responses: [
-        'For me, yes — it gave structure to instincts I already had and opened doors in Australia I would not have had otherwise.',
-        'The biggest value was learning alongside people from different backgrounds and building a portfolio grounded in real briefs, not just class exercises.'
+        "With the mindset of an engineer, I can say that I enjoy finding creative solutions to problems, but while working on projects throughout the course of my master's degree, I learnt the importance of putting the user's need ahead of our assumptions. By talking to users via interviews and surveys, then validating these findings through testing loops, I was able to develop prototypes that met diverse interaction needs and solved the problem that was at hand.",
+        'So yes, I believe that it was worth it.'
       ]
     },
     {
@@ -90,27 +102,27 @@
       id: 'sunglass-hut',
       question: 'How is it working in retail at Sunglass Hut ?',
       responses: [
-        'It keeps me close to real people making quick decisions — reading body language, explaining trade-offs, and adapting on the fly.',
-        'Retail taught me patience and presence under pressure, which surprisingly shows up in user interviews and stakeholder workshops too.'
+        "Working at Sunglass Hut has been a great experience because it's a very customer-focused environment. Every customer comes in with different needs, whether it's finding the right style, getting the correct lens for their lifestyle, or staying within a budget. My role is to listen, ask the right questions, and help them find the best solution rather than simply trying to make a sale.",
+        "Moreover, many of the skills I've developed like understanding customer needs, communicating clearly, collaborating with a team, and delivering a positive customer experience are directly transferable to product design, where empathy and understanding users are equally important.",
+        'Plus getting your sunglasses for half price does not hurt 😂😂'
       ]
     },
     {
       id: 'fact-of-day',
-      question: 'Can you give me a quick fact of the day ?',
-      responses: [
-        'Octopuses have three hearts — two pump blood to the gills and one to the rest of the body.',
-        'I collect random facts like this; they are a good reminder that interesting details often make interfaces more memorable too.'
-      ]
+      question: 'Can we play Rap or Crap ?',
+      launchGame: true,
+      responses: []
     },
     {
       id: 'outside-work',
-      question: 'Who is Derek outside of work hours ?',
+      question: 'Who is Derek outside of work ?',
       responses: [
-        'Usually behind a camera, tinkering with side projects, or hunting down good coffee around Brisbane.',
-        'I recharge by making things — photos, small apps, messy sketches — and by spending time with people who are curious about the world.'
+        "Outside of work, I'm usually binge watching a show, playing on my PS5, going out with my camera to take photos or making notes of random projects that I should vibe code."
       ]
     }
-  ];
+  ].filter(function (item) {
+    return RAP_OR_CRAP_ENABLED || !item.launchGame;
+  });
 
   function setGalleryStatus(message, isError) {
     if (!galleryStatus) return;
@@ -170,12 +182,15 @@
     }).join(',');
 
     async function fetchGalleryRow() {
-      const response = await fetch(supabaseUrl + '/rest/v1/about_me?select=' + selectFields + '&limit=1', {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: 'Bearer ' + supabaseKey
+      const response = await fetch(
+        supabaseUrl + '/rest/v1/' + encodeURIComponent(aboutTable) + '?select=' + selectFields + '&limit=1',
+        {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: 'Bearer ' + supabaseKey
+          }
         }
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Could not load gallery images.');
@@ -194,9 +209,17 @@
 
       const imageUrls = GALLERY_IMAGE_FIELDS.map(function (field) {
         return row[field];
-      }).filter(function (url) {
-        return typeof url === 'string' && url.trim().length > 0;
-      });
+      })
+        .filter(function (url) {
+          return typeof url === 'string' && url.trim().length > 0;
+        })
+        .map(function (url) {
+          if (window.resolveSupabaseStorageUrl) {
+            return window.resolveSupabaseStorageUrl(url.trim());
+          }
+          return url.trim();
+        })
+        .filter(Boolean);
 
       if (!imageUrls.length) {
         setGalleryStatus('No gallery photos found yet.', true);
@@ -276,24 +299,8 @@
     }
   }
 
-  function updateScrollbar() {
-    if (!scrollbarThumb) return;
-    const maxScroll = viewportEl.scrollHeight - viewportEl.clientHeight;
-    if (maxScroll <= 0) {
-      scrollbarThumb.style.top = '0';
-      return;
-    }
-    const trackHeight = viewportEl.clientHeight - 82;
-    const thumbHeight = Math.max(21, (viewportEl.clientHeight / viewportEl.scrollHeight) * trackHeight);
-    const maxThumbTop = trackHeight - thumbHeight;
-    const thumbTop = (viewportEl.scrollTop / maxScroll) * maxThumbTop;
-    scrollbarThumb.style.height = `${thumbHeight}px`;
-    scrollbarThumb.style.top = `${thumbTop}px`;
-  }
-
   function scrollToBottom() {
     viewportEl.scrollTop = viewportEl.scrollHeight;
-    updateScrollbar();
   }
 
   function createTimestamp() {
@@ -316,6 +323,18 @@
     bubble.textContent = text;
     return bubble;
   }
+
+  function hideQuestionPicker() {
+    if (pickerEl) pickerEl.hidden = true;
+  }
+
+  function showQuestionPicker() {
+    if (pickerEl) pickerEl.hidden = false;
+    renderSuggestions();
+  }
+
+  window.hideAboutChatQuestions = hideQuestionPicker;
+  window.showAboutChatQuestions = showQuestionPicker;
 
   function createTypingIndicator() {
     const wrap = document.createElement('div');
@@ -341,7 +360,16 @@
   }
 
   function renderSuggestions() {
+    if (!suggestionsEl) return;
+
     suggestionsEl.innerHTML = '';
+    const remaining = CHAT_QA.length - askedIds.size;
+
+    if (promptEl) {
+      promptEl.hidden = remaining === 0;
+      promptEl.textContent = remaining === 0 ? '' : 'Pick a question to ask';
+    }
+
     CHAT_QA.forEach(function (item) {
       const chip = document.createElement('button');
       chip.type = 'button';
@@ -352,11 +380,11 @@
       if (askedIds.has(item.id)) {
         chip.classList.add('about-chat__chip--asked');
         chip.disabled = true;
+      } else {
+        chip.addEventListener('click', function () {
+          askQuestion(item);
+        });
       }
-
-      chip.addEventListener('click', function () {
-        askQuestion(item);
-      });
 
       suggestionsEl.appendChild(chip);
     });
@@ -372,7 +400,6 @@
     introGroup.appendChild(createTimestamp());
     messagesEl.appendChild(introGroup);
     renderSuggestions();
-    updateScrollbar();
   }
 
   function delay(ms) {
@@ -381,11 +408,27 @@
     });
   }
 
-  async function askQuestion(item) {
-    if (askedIds.has(item.id)) return;
+  async function showTypingIndicator() {
+    const typing = createTypingIndicator();
+    messagesEl.appendChild(typing);
+    scrollToBottom();
+    if (TYPING_MS > 0) await delay(TYPING_MS);
+    typing.remove();
+  }
 
-    askedIds.add(item.id);
-    renderSuggestions();
+  async function askQuestion(item) {
+    if (item.launchGame && !RAP_OR_CRAP_ENABLED) return;
+
+    if (item.launchGame) {
+      if (document.documentElement.classList.contains('is-rap-or-crap-open')) return;
+    } else if (askedIds.has(item.id)) {
+      return;
+    }
+
+    if (!item.launchGame) {
+      askedIds.add(item.id);
+      renderSuggestions();
+    }
 
     const userGroup = createMessageGroup('user');
     userGroup.appendChild(createBubble(item.question, 'user', true));
@@ -393,27 +436,28 @@
     messagesEl.appendChild(userGroup);
     scrollToBottom();
 
-    const typing = createTypingIndicator();
-    messagesEl.appendChild(typing);
-    scrollToBottom();
-
-    if (TYPING_MS > 0) await delay(TYPING_MS);
-    typing.remove();
+    if (item.launchGame) {
+      hideQuestionPicker();
+      if (typeof window.openRapOrCrapGame === 'function') {
+        window.openRapOrCrapGame();
+      }
+      return;
+    }
 
     const replyGroup = createMessageGroup('derek');
     messagesEl.appendChild(replyGroup);
 
     for (let i = 0; i < item.responses.length; i += 1) {
+      await showTypingIndicator();
       replyGroup.appendChild(createBubble(item.responses[i], 'derek', true));
       scrollToBottom();
-      if (i < item.responses.length - 1 && BUBBLE_GAP_MS > 0) {
-        await delay(BUBBLE_GAP_MS);
-      }
     }
 
     replyGroup.appendChild(createTimestamp());
     scrollToBottom();
   }
+
+  window.scrollAboutChatToBottom = scrollToBottom;
 
   function setOpenState(isOpen) {
     infoBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -426,6 +470,22 @@
 
     closeResumeIfOpen();
     closeLibraryPanelsIfOpen();
+
+    if (isMobileAboutView()) {
+      if (typeof window.loadAboutMobileContent === 'function') {
+        window.loadAboutMobileContent();
+      }
+      if (typeof window.resetAboutMobileScroll === 'function') {
+        window.resetAboutMobileScroll();
+      }
+      if (mobileAboutPage) mobileAboutPage.hidden = false;
+      document.documentElement.classList.add('is-about-open');
+      setOpenState(true);
+      isAnimating = false;
+      return;
+    }
+
+    if (mobileAboutPage) mobileAboutPage.hidden = true;
     bootstrapChat();
     setAboutTab('chat');
     loadGalleryFromSupabase();
@@ -464,9 +524,14 @@
   function closeAboutPanel(immediate) {
     if (!document.documentElement.classList.contains('is-about-open')) return;
 
-    if (immediate || prefersReducedMotion) {
+    if (typeof window.closeRapOrCrapGame === 'function' && RAP_OR_CRAP_ENABLED) {
+      window.closeRapOrCrapGame();
+    }
+
+    if (immediate || prefersReducedMotion || isMobileAboutView()) {
       document.documentElement.classList.remove('is-about-open');
       setOpenState(false);
+      if (mobileAboutPage) mobileAboutPage.hidden = true;
       setWindowTransition('');
       aboutWindow.style.opacity = '';
       aboutWindow.style.transform = '';
@@ -492,6 +557,7 @@
       window.setTimeout(function () {
         document.documentElement.classList.remove('is-about-open');
         setOpenState(false);
+        if (mobileAboutPage) mobileAboutPage.hidden = true;
 
         setWindowTransition('');
         aboutWindow.style.opacity = '';
@@ -544,9 +610,6 @@
   if (logoTrigger) {
     logoTrigger.addEventListener('click', closeAboutPanel);
   }
-
-  viewportEl.addEventListener('scroll', updateScrollbar, { passive: true });
-  window.addEventListener('resize', updateScrollbar);
 
   window.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeAboutPanel();

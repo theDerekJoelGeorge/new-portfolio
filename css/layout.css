@@ -10,6 +10,7 @@
   max-width: none;
   margin: 0;
   padding: 0;
+  background: var(--color-bg);
 }
 
 /* Header — full page width, logo left / social right */
@@ -51,12 +52,12 @@
   font-size: 1.875rem;
 }
 
-/* Tooltip for resume icon */
-.social-link--resume {
+/* Tooltips for social icons (desktop hover) */
+.social-link[data-tooltip] {
   position: relative;
 }
 
-.social-link--resume::after {
+.social-link[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   top: calc(100% + 0.55rem);
@@ -74,8 +75,9 @@
   z-index: 1000;
 }
 
-.social-link--resume:hover::after,
-.social-link--resume:focus-visible::after {
+.social-link[data-tooltip]:hover::after,
+.social-link[data-tooltip]:focus-visible::after,
+.social-link[data-tooltip].is-feedback-visible::after {
   opacity: 1;
   visibility: visible;
 }
@@ -244,6 +246,34 @@
   text-align: center;
   width: auto;
   margin: 0;
+}
+
+.profile__name[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 1000;
+}
+
+.profile__name[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 .profile__name-wrap .info-btn {
@@ -799,8 +829,14 @@ body.bowman-is-active .footer-runner__canvas {
     font-size: 1.5rem;
   }
 
-  .social-link--resume::after {
+  .social-link[data-tooltip]::after {
     display: none !important;
+  }
+
+  .social-link[data-tooltip].is-feedback-visible::after {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .main-grid {
@@ -989,7 +1025,7 @@ body.bowman-is-active .footer-runner__canvas {
     position: fixed;
     inset: 0;
     z-index: 200;
-    padding: 4rem var(--desktop-pad-x) 4.5rem;
+    padding: var(--mobile-header-chrome) var(--desktop-pad-x) var(--mobile-nav-chrome);
     box-sizing: border-box;
     background: var(--color-bg);
   }
