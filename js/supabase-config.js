@@ -8,7 +8,7 @@ window.SUPABASE_STORAGE_BUCKET = 'Portfolio';
 window.SUPABASE_IMAGE_TRANSFORM = false;
 
 // Bump when you publish CMS changes in Supabase to invalidate cached content immediately.
-window.SUPABASE_CACHE_VERSION = 4;
+window.SUPABASE_CACHE_VERSION = 5;
 // How long cached JSON stays fresh before a background revalidate (24 hours).
 window.SUPABASE_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 

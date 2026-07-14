@@ -32,7 +32,7 @@ function vibecodingEscapeHtml(value) {
 }
 
 async function fetchVibecodingExperimentsFromNetwork(env) {
-  const select = encodeURIComponent('id,title,status,hero_vid,sort_order');
+  const select = encodeURIComponent('id,title,status,hero_vid,link,sort_order');
   const endpoint =
     env.url +
     '/rest/v1/' +
@@ -68,7 +68,9 @@ function buildVibecodingCardHtml(row, options) {
   const pageLayout = options && options.pageLayout;
   const title = vibecodingEscapeHtml(row.title || 'Untitled experiment');
   const status = String(row.status || '').toLowerCase();
+  const link = typeof row.link === 'string' ? row.link.trim() : '';
   const videoUrl = vibecodingResolveStorageUrl(row.hero_vid);
+  const isDone = status === 'done' || status === 'built';
   const badge =
     status === 'building' ? '<span class="vibecoding-card__badge">coming soon</span>' : '';
 
@@ -84,12 +86,25 @@ function buildVibecodingCardHtml(row, options) {
     ? 'vibecoding-card-home vibecoding-card-home--page'
     : 'vibecoding-card-home';
   const stickAttr = stickTarget ? ' data-stick-target' : '';
+  const isLinked = Boolean(isDone && link);
+  const tag = isLinked ? 'a' : 'article';
+  const linkAttrs = isLinked
+    ? ' href="' +
+      vibecodingEscapeHtml(link) +
+      '" target="_blank" rel="noopener noreferrer" aria-label="' +
+      title +
+      '"'
+    : '';
 
   return (
-    '<article class="' +
+    '<' +
+    tag +
+    ' class="' +
     articleClass +
+    (isLinked ? ' vibecoding-card-home--linked' : '') +
     '"' +
     stickAttr +
+    linkAttrs +
     '>' +
     '<div class="vibecoding-card">' +
     '<div class="vibecoding-card__frame">' +
@@ -102,7 +117,9 @@ function buildVibecodingCardHtml(row, options) {
     '</h3>' +
     badge +
     '</div>' +
-    '</article>'
+    '</' +
+    tag +
+    '>'
   );
 }
 
@@ -114,6 +131,7 @@ function vibecodingRowsSignature(rows) {
         title: row.title,
         status: row.status,
         hero_vid: row.hero_vid,
+        link: row.link,
         sort_order: row.sort_order,
       };
     })

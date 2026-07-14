@@ -29,6 +29,23 @@
   max-width: 18.5rem;
   --vibecoding-outer-radius: 0.5473rem;
   --vibecoding-frame-padding: 0.35rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.vibecoding-card-home--linked {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.vibecoding-card-home--linked:hover,
+.vibecoding-card-home--linked:focus-visible {
+  transform: translateY(-2px);
+}
+
+.vibecoding-card-home--linked:focus-visible {
+  outline: 2px solid var(--color-accent, #ff8d28);
+  outline-offset: 0.35rem;
 }
 
 .vibecoding-card-home__meta {

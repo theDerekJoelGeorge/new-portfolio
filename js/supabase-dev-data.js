@@ -50,7 +50,16 @@
       title: 'Reworking this portfolio',
       status: 'building',
       hero_vid: '',
+      link: '',
       sort_order: 0,
+    },
+    {
+      id: 'dev-vibecoding-2',
+      title: 'Thoughts',
+      status: 'done',
+      hero_vid: '',
+      link: 'https://thoughtsinthesky.vercel.app/',
+      sort_order: 1,
     },
   ];
 
