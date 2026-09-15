@@ -1,4 +1,110 @@
 (function () {
+  const RESUME_DOC_HTML =
+    '<article class="resume-doc">' +
+    '<header class="resume-doc__header">' +
+    '<h1 class="resume-doc__name">Derek Joel George</h1>' +
+    '<p class="resume-doc__contact">' +
+    '<a href="mailto:derekjoelgeorge@gmail.com">derekjoelgeorge@gmail.com</a>' +
+    '<span aria-hidden="true">·</span>' +
+    '<a href="tel:+61478670086">+61 478 670 086</a>' +
+    '<span aria-hidden="true">·</span>' +
+    '<span>Brisbane, Australia</span>' +
+    '<span aria-hidden="true">·</span>' +
+    '<a href="https://www.linkedin.com/in/derek-joel-george" target="_blank" rel="noopener noreferrer">linkedin.com/in/derek-joel-george</a>' +
+    '<span aria-hidden="true">·</span>' +
+    '<a href="https://thederekjoel.com" target="_blank" rel="noopener noreferrer">thederekjoel.com</a>' +
+    '</p>' +
+    '</header>' +
+    '<section class="resume-doc__section">' +
+    '<h2 class="resume-doc__heading">Summary</h2>' +
+    '<p class="resume-doc__summary">UX/UI designer with a Master’s in Interaction Design (UQ, 2025) and current contract work defining the experience for a data-heavy financial product at Dunstan Consulting Group. Two years at Capgemini mapping user journeys and design system workflows, plus tutoring web design at UQ. Stronger in wireframing, prototyping, interface design, and translating complex requirements into clearer user experiences, with HTML, CSS, and JavaScript for practical handoff.</p>' +
+    '</section>' +
+    '<section class="resume-doc__section">' +
+    '<h2 class="resume-doc__heading">Skills</h2>' +
+    '<dl class="resume-doc__skills">' +
+    '<div class="resume-doc__skill"><dt>UX &amp; Interaction</dt><dd>UX &amp; Interaction Design, User Research, Usability Testing, Wireframing, Prototyping, User Flows</dd></div>' +
+    '<div class="resume-doc__skill"><dt>UI &amp; Visual</dt><dd>UI Design, Visual Design, High-Fidelity Mockups, Design Systems, Responsive Layouts</dd></div>' +
+    '<div class="resume-doc__skill"><dt>Tools</dt><dd>Figma, Miro, Adobe Creative Suite, Adobe XD, Illustrator, Photoshop, Unity</dd></div>' +
+    '<div class="resume-doc__skill"><dt>Accessibility</dt><dd>WCAG 2.2, Inclusive Design Principles</dd></div>' +
+    '<div class="resume-doc__skill"><dt>Technical</dt><dd>HTML, CSS, JavaScript, Python, SQL, Cursor (AI-assisted workflows)</dd></div>' +
+    '</dl>' +
+    '</section>' +
+    '<section class="resume-doc__section">' +
+    '<h2 class="resume-doc__heading">Experience</h2>' +
+    '<div class="resume-doc__jobs">' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">User Interface / User Experience Specialist <span>(Contract)</span></h3>' +
+    '<p class="resume-doc__dates">March 2026 – Present</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">Dunstan Consulting Group <span>Brisbane, QLD</span></p>' +
+    '<ul>' +
+    '<li>Defining the user experience and user interface for DCG’s flagship software, Vantage.</li>' +
+    '<li>Designing the whole app in a clear and intuitive way so complex financial loss modelling data is presented effectively and helps users make better decisions.</li>' +
+    '</ul>' +
+    '</article>' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">Casual Academic Tutor <span>(DECO7140)</span></h3>' +
+    '<p class="resume-doc__dates">July 2024 – November 2025</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">University of Queensland <span>Brisbane, QLD</span></p>' +
+    '<ul>' +
+    '<li>Conducted weekly tutorials on web design fundamentals, covering HTML, CSS, responsive design principles, and introductory JavaScript programming.</li>' +
+    '<li>Guided 100+ postgraduate students through theoretical concepts and practical applications of web design, fostering a deep understanding of modern web development practices and tools.</li>' +
+    '</ul>' +
+    '</article>' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">Senior Analyst</h3>' +
+    '<p class="resume-doc__dates">August 2021 – June 2023</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">Capgemini India Private Ltd. <span>Bangalore, India</span></p>' +
+    '<ul>' +
+    '<li>Engaged with project managers to map user journeys and design system workflows, ensuring that backend API integrations supported clear, intuitive product experiences.</li>' +
+    '<li>Developed a Proof of Concept (POC) website, incorporating the Stripe payments platform to support its expansion into the Indian market, ensuring compliance with local payment regulations and optimizing transaction workflows.</li>' +
+    '</ul>' +
+    '</article>' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">Retail Sales Associate</h3>' +
+    '<p class="resume-doc__dates">November 2025 – Present</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">Sunglass Hut <span>Brisbane, QLD</span></p>' +
+    '<ul>' +
+    '<li>Achieved 700+ sales and over AUD 150K in gross sales through personalized service, strong product knowledge, and a clear understanding of customer needs.</li>' +
+    '<li>Specialized in selling Meta smart glasses and designer eyewear using style-led, conversion-focused recommendations tailored to each customer.</li>' +
+    '</ul>' +
+    '</article>' +
+    '</div>' +
+    '</section>' +
+    '<section class="resume-doc__section">' +
+    '<h2 class="resume-doc__heading">Education</h2>' +
+    '<div class="resume-doc__jobs">' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">Master of Interaction Design</h3>' +
+    '<p class="resume-doc__dates">July 2025</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">University of Queensland <span>Brisbane, QLD</span></p>' +
+    '<ul>' +
+    '<li>GPA: 6.375. Dean’s Commendation for Academic Excellence recipient. Employability Award recipient.</li>' +
+    '</ul>' +
+    '</article>' +
+    '<article class="resume-doc__job">' +
+    '<div class="resume-doc__job-top">' +
+    '<h3 class="resume-doc__role">Bachelor of Technology in Electronics and Communication Engineering</h3>' +
+    '<p class="resume-doc__dates">May 2021</p>' +
+    '</div>' +
+    '<p class="resume-doc__org">National Institute of Technology Karnataka <span>Surathkal, India</span></p>' +
+    '<ul>' +
+    '<li>GPA: 6.54</li>' +
+    '</ul>' +
+    '</article>' +
+    '</div>' +
+    '</section>' +
+    '</article>';
+
   const RESUME_PANEL_HTML =
     '<div class="resume-window">' +
     '<div class="resume-window__titlebar">' +
@@ -13,8 +119,7 @@
     '</div>' +
     '</div>' +
     '<div class="resume-window__content">' +
-    '<div class="resume-window__pdf-scroll" id="resumePdfScroll" hidden></div>' +
-    '<iframe class="resume-window__pdf" id="resumePdfFrame" title="Derek resume" hidden scrolling="no"></iframe>' +
+    RESUME_DOC_HTML +
     '</div>' +
     '</div>';
 
@@ -42,100 +147,25 @@
   const logoTrigger = document.querySelector('.site-header__brand');
   const resumePanel = ensureResumePanel();
   const resumeWindow = resumePanel ? resumePanel.querySelector('.resume-window') : null;
-  const resumePdfFrame = document.getElementById('resumePdfFrame');
-  const resumePdfScroll = document.getElementById('resumePdfScroll');
   const closeBtn = document.getElementById('resumeCloseBtn');
   const minBtn = document.getElementById('resumeMinBtn');
   const zoomBtn = document.getElementById('resumeZoomBtn');
 
   if (!resumeTrigger || !resumePanel || !resumeWindow) return;
 
-  const RESUME_PDF_URL = 'assets/derek-resume.pdf';
-  const RESUME_PDF_HASH = '#toolbar=0&navpanes=0&scrollbar=0&view=Fit';
+  const resumeContent = resumeWindow.querySelector('.resume-window__content');
+  if (resumeContent && !resumeContent.querySelector('.resume-doc')) {
+    resumeContent.innerHTML = RESUME_DOC_HTML;
+  }
+
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TRANSITION_MS = 260;
   const EASE = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
   let isAnimating = false;
-  let pdfRenderToken = 0;
 
-  if (window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  }
-
-  function clearResumePdf() {
-    pdfRenderToken += 1;
-
-    if (resumePdfFrame) {
-      resumePdfFrame.removeAttribute('src');
-      resumePdfFrame.hidden = true;
-    }
-
-    if (resumePdfScroll) {
-      resumePdfScroll.innerHTML = '';
-      resumePdfScroll.hidden = true;
-    }
-  }
-
-  async function renderResumePdfWithPdfJs() {
-    if (!resumePdfScroll || !window.pdfjsLib) return false;
-
-    const renderToken = ++pdfRenderToken;
-    resumePdfScroll.innerHTML = '';
-    resumePdfScroll.hidden = false;
-
-    if (resumePdfFrame) resumePdfFrame.hidden = true;
-
-    try {
-      const pdf = await pdfjsLib.getDocument(RESUME_PDF_URL).promise;
-      if (renderToken !== pdfRenderToken) return false;
-
-      const containerWidth = Math.max(resumePdfScroll.clientWidth, 320);
-
-      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
-        const page = await pdf.getPage(pageNumber);
-        if (renderToken !== pdfRenderToken) return false;
-
-        const baseViewport = page.getViewport({ scale: 1 });
-        const scale = containerWidth / baseViewport.width;
-        const viewport = page.getViewport({ scale: scale });
-
-        const canvas = document.createElement('canvas');
-        canvas.className = 'resume-window__pdf-page';
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const context = canvas.getContext('2d');
-        await page.render({ canvasContext: context, viewport: viewport }).promise;
-        if (renderToken !== pdfRenderToken) return false;
-
-        resumePdfScroll.appendChild(canvas);
-      }
-
-      return true;
-    } catch (error) {
-      console.warn('Failed to render resume PDF with PDF.js', error);
-      return false;
-    }
-  }
-
-  async function loadResumePdf() {
-    clearResumePdf();
-
-    // Wait for the open panel to finish layout before measuring the PDF viewport.
-    await new Promise(function (resolve) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(resolve);
-      });
-    });
-
-    const rendered = await renderResumePdfWithPdfJs();
-    if (rendered) return;
-
-    if (!resumePdfFrame) return;
-
-    resumePdfFrame.hidden = false;
-    resumePdfFrame.src = RESUME_PDF_URL + RESUME_PDF_HASH;
+  function resetResumeView() {
+    if (resumeContent) resumeContent.scrollTop = 0;
+    if (zoomBtn) zoomBtn.setAttribute('aria-pressed', 'false');
   }
 
   function rectCenter(rect) {
@@ -146,7 +176,6 @@
     const from = rectCenter(fromRect);
     const to = rectCenter(toRect);
 
-    // Scale from icon-ish size into the window size
     const scale = Math.max(
       0.12,
       Math.min(0.95, Math.min(fromRect.width / toRect.width, fromRect.height / toRect.height))
@@ -182,14 +211,13 @@
 
     document.documentElement.classList.add('is-resume-open');
     resumePanel.classList.remove('is-closing');
-    loadResumePdf();
+    resetResumeView();
 
     if (prefersReducedMotion) {
       isAnimating = false;
       return;
     }
 
-    // Measure start (icon) and end (window) positions and animate like Finder "dive".
     const fromRect = resumeTrigger.getBoundingClientRect();
     const toRect = resumeWindow.getBoundingClientRect();
     const { dx, dy, scale } = computeDiveTransform(fromRect, toRect);
@@ -225,14 +253,13 @@
     if (prefersReducedMotion) {
       document.documentElement.classList.remove('is-resume-open');
       document.documentElement.classList.remove('is-resume-fullscreen');
-      clearResumePdf();
+      resetResumeView();
       return;
     }
 
     if (isAnimating) return;
     isAnimating = true;
 
-    // Reverse-dive back into the resume icon.
     const fromRect = resumeTrigger.getBoundingClientRect();
     const toRect = resumeWindow.getBoundingClientRect();
     const { dx, dy, scale } = computeDiveTransform(fromRect, toRect);
@@ -249,7 +276,7 @@
         resumePanel.classList.remove('is-closing');
         document.documentElement.classList.remove('is-resume-open');
         document.documentElement.classList.remove('is-resume-fullscreen');
-        clearResumePdf();
+        resetResumeView();
 
         setWindowTransition('');
         resumeWindow.style.opacity = '';
@@ -261,15 +288,16 @@
 
   function toggleFullscreen() {
     if (!document.documentElement.classList.contains('is-resume-open')) return;
-    document.documentElement.classList.toggle('is-resume-fullscreen');
+    const isFullscreen = document.documentElement.classList.toggle('is-resume-fullscreen');
+    if (zoomBtn) zoomBtn.setAttribute('aria-pressed', isFullscreen ? 'true' : 'false');
   }
 
-  window.clearResumePdf = clearResumePdf;
+  window.clearResumePdf = resetResumeView;
   window.closeResumeIfOpen = function () {
     if (!document.documentElement.classList.contains('is-resume-open')) return;
     document.documentElement.classList.remove('is-resume-open');
     document.documentElement.classList.remove('is-resume-fullscreen');
-    clearResumePdf();
+    resetResumeView();
   };
 
   resumeTrigger.addEventListener('click', function (e) {
@@ -291,4 +319,3 @@
     if (e.key === 'Escape') closeResumePanel();
   });
 })();
-

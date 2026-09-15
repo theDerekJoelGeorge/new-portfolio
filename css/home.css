@@ -764,48 +764,176 @@ html.is-resume-open .resume-window {
 
 .resume-window__content {
   width: 100%;
-  background: #d9d9d9;
+  background: #fff;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: auto;
   flex: 1;
   min-height: 0;
-}
-
-.resume-window__pdf,
-.resume-window__pdf-scroll {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-  background: #d9d9d9;
-}
-
-.resume-window__pdf-scroll {
-  overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.resume-window__pdf-page {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 0 auto;
+.resume-doc {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 1.25rem 1.5rem 1.4rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
 }
 
-.resume-window__pdf-page + .resume-window__pdf-page {
-  margin-top: 0.5rem;
+.resume-doc__header {
+  margin: 0 0 0.95rem;
 }
 
-html:not(.is-resume-open) .resume-window__pdf,
-html:not(.is-resume-open) .resume-window__pdf-scroll {
-  display: none !important;
+.resume-doc__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-text);
 }
 
-/* Hide any iframe scrollbars (best-effort; PDF viewer varies by browser) */
-@media (min-width: 961px) {
-  .resume-window__pdf {
-    overflow: hidden;
-  }
+.resume-doc__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.4rem;
+  margin: 0.5rem 0 0;
+  color: #6b6b6b;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.resume-doc__contact a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resume-doc__contact a:hover,
+.resume-doc__contact a:focus-visible {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.resume-doc__section + .resume-doc__section {
+  margin-top: 0.85rem;
+}
+
+.resume-doc__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.resume-doc__heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e4e4e4;
+}
+
+.resume-doc__summary {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.resume-doc__skills {
+  display: grid;
+  gap: 0.22rem;
+  margin: 0;
+}
+
+.resume-doc__skill {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.resume-doc__skill dt {
+  margin: 0;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.resume-doc__skill dd {
+  margin: 0;
+  color: #3a3a3a;
+}
+
+.resume-doc__jobs {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.resume-doc__job-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.75rem 1rem;
+}
+
+.resume-doc__role {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.resume-doc__role span {
+  font-weight: 400;
+  color: #5c5c5c;
+}
+
+.resume-doc__dates {
+  margin: 0;
+  flex-shrink: 0;
+  color: #6b6b6b;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.resume-doc__org {
+  margin: 0.12rem 0 0.28rem;
+  color: #5c5c5c;
+  font-style: italic;
+}
+
+.resume-doc__org span {
+  font-style: italic;
+}
+
+.resume-doc__org span::before {
+  content: '·';
+  margin: 0 0.4rem;
+  font-style: normal;
+}
+
+.resume-doc__job ul {
+  margin: 0;
+  padding: 0 0 0 1.05rem;
+}
+
+.resume-doc__job li + li {
+  margin-top: 0.12rem;
+}
+
+.resume-doc__job li {
+  color: #2a2a2a;
 }
 
 /* Fullscreen (green dot) */
@@ -842,6 +970,28 @@ html.is-resume-fullscreen .resume-window__content {
 
   .resume-window__content {
     border-radius: 16px;
+  }
+
+  .resume-doc {
+    padding: 1.25rem 1.2rem 1.5rem;
+  }
+
+  .resume-doc__name {
+    font-size: 1.45rem;
+  }
+
+  .resume-doc__skill {
+    grid-template-columns: 1fr;
+    gap: 0.12rem;
+  }
+
+  .resume-doc__job-top {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .resume-doc__dates {
+    white-space: normal;
   }
 
   html.is-resume-fullscreen .resume-panel {

@@ -76,9 +76,9 @@
     }
 
     if (entry) {
-      if (!isFresh(entry)) {
-        revalidate();
-      }
+      // Always background-revalidate so CMS updates show up without waiting for TTL
+      // or a manual cache-version bump. Fresh cache still paints immediately.
+      revalidate();
       return entry.data;
     }
 

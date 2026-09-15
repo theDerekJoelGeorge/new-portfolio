@@ -8,15 +8,15 @@
   <title>Case Study — Derek Joel George</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@800&family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/layout.css?v=4">
   <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/case-studies.css">
+  <link rel="stylesheet" href="css/case-studies.css?v=35">
 </head>
-<body class="case-page">
+<body class="case-page case-page--detail">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <div class="page">
@@ -37,19 +37,38 @@
       </nav>
     </header>
 
-    <main id="main-content" class="case-page__main">
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <ol class="breadcrumbs__list">
-          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="case-studies.html">Case Studies</a></li>
-          <li class="breadcrumbs__sep" aria-hidden="true">/</li>
-          <li class="breadcrumbs__item"><span class="breadcrumbs__current" id="breadcrumbCurrent">Loading…</span></li>
-        </ol>
-      </nav>
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="case-studies.html">Case Studies</a></li>
+        <li class="breadcrumbs__sep" aria-hidden="true">/</li>
+        <li class="breadcrumbs__item"><span class="breadcrumbs__current" id="breadcrumbCurrent">Loading…</span></li>
+      </ol>
+    </nav>
 
+    <main id="main-content" class="case-page__main">
       <div class="case-study" id="caseStudy">
-        <h1 class="case-study__title">Loading case study…</h1>
+        <h1 class="cs-hero__title">Loading case study…</h1>
       </div>
     </main>
+
+    <footer class="site-footer">
+      <hr class="site-footer__rule" aria-hidden="true">
+      <div class="site-footer__row">
+        <div class="site-footer__location">
+          <span class="site-footer__location-label">Based in Brisbane</span>
+          <span class="site-footer__location-meta">
+            <img src="images/brisbane-story-bridge.svg" alt="" class="site-footer__location-icon" width="34" height="20">
+            <time class="site-footer__location-time" id="brisbaneTime" datetime="">--:--:--</time>
+          </span>
+        </div>
+        <div class="site-footer__actions">
+          <span class="site-footer__action-separator" aria-hidden="true">|</span>
+          <span class="curious-btn-wrap">
+            <button type="button" class="break-website-btn" id="breakWebsiteBtn">Do not Click</button>
+          </span>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <nav class="mobile-nav" aria-label="Mobile navigation">
@@ -75,11 +94,12 @@
 
   <script src="js/social-links.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="js/supabase-config.js"></script>
+  <script src="js/supabase-config.js?v=17"></script>
   <script src="js/supabase-dev-data.js"></script>
   <script src="js/supabase-cache.js"></script>
   <script src="js/supabase-storage.js"></script>
-  <script src="js/case-studies.js"></script>
+  <script src="js/case-studies.js?v=33"></script>
+  <script src="js/brisbane-time.js"></script>
   <script src="js/resume-modal.js"></script>
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
