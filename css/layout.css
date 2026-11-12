@@ -150,8 +150,10 @@
   justify-content: center;
   gap: clamp(0.35rem, 1dvh, 0.625rem);
   width: 27.52rem;
+  max-width: 100%;
   max-height: 100%;
   flex-shrink: 1;
+  min-width: 0;
   min-height: 0;
 }
 
@@ -355,7 +357,7 @@
 .profile__timeline {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: 1rem;
+  column-gap: 0.75rem;
   row-gap: clamp(0.2rem, 0.65dvh, 0.4375rem);
   width: 100%;
   font-size: 1.125rem;
@@ -378,7 +380,8 @@
   font-weight: 700;
   color: var(--color-text);
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
   min-width: 0;
 }
 
@@ -1339,13 +1342,46 @@ body.bowman-is-active .footer-runner__canvas {
   }
 
   .profile,
-  .portfolio {
+  .portfolio,
+  .right-slot {
     width: 100%;
     max-width: 39.75rem;
   }
 
   .card-row {
     flex-wrap: wrap;
+  }
+}
+
+/* 15.6" laptops (1366–1600 CSS px, including 1920@125%) */
+@media (min-width: 1201px) and (max-width: 1680px) {
+  :root {
+    --desktop-pad-x: clamp(2rem, 4.5vw, 5rem);
+  }
+
+  .main-grid {
+    gap: clamp(1.25rem, 2.8vw, 3.25rem);
+  }
+
+  .profile {
+    width: clamp(20.5rem, 34vw, 27.52rem);
+  }
+
+  .right-slot,
+  .portfolio {
+    width: clamp(24rem, 50vw, 39.75rem);
+  }
+
+  .profile__identity,
+  .profile__bio,
+  .profile__timeline {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .profile__timeline {
+    font-size: 1.05rem;
+    column-gap: 0.65rem;
   }
 }
 
@@ -1410,7 +1446,13 @@ body.bowman-is-active .footer-runner__canvas {
     width: clamp(21rem, 36vw, 27.52rem);
   }
 
+  .right-slot,
   .portfolio {
     width: clamp(22rem, 42vw, 39.75rem);
+  }
+
+  .profile__bio,
+  .profile__timeline {
+    max-width: 100%;
   }
 }
