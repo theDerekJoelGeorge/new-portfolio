@@ -100,11 +100,11 @@
     },
     {
       id: 'sunglass-hut',
-      question: 'How is it working in retail at Sunglass Hut ?',
+      question: 'How was it working in retail at Sunglass Hut ?',
       responses: [
-        "Working at Sunglass Hut has been a great experience because it's a very customer-focused environment. Every customer comes in with different needs, whether it's finding the right style, getting the correct lens for their lifestyle, or staying within a budget. My role is to listen, ask the right questions, and help them find the best solution rather than simply trying to make a sale.",
-        "Moreover, many of the skills I've developed like understanding customer needs, communicating clearly, collaborating with a team, and delivering a positive customer experience are directly transferable to product design, where empathy and understanding users are equally important.",
-        'Plus getting your sunglasses for half price does not hurt 😂😂'
+        "Working at Sunglass Hut was a great experience because it's a very customer-focused environment. Every customer comes in with different needs, whether it's finding the right style, getting the correct lens for their lifestyle, or staying within a budget. My role was to listen, ask the right questions, and help them find the best solution rather than simply trying to make a sale.",
+        "Moreover, many of the skills I developed like understanding customer needs, communicating clearly, collaborating with a team, and delivering a positive customer experience are directly transferable to product design, where empathy and understanding users are equally important.",
+        'Plus getting your sunglasses for half price did not hurt 😂😂'
       ]
     },
     {

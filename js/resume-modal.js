@@ -68,11 +68,11 @@
     '<article class="resume-doc__job">' +
     '<div class="resume-doc__job-top">' +
     '<h3 class="resume-doc__role">Retail Sales Associate</h3>' +
-    '<p class="resume-doc__dates">November 2025 – Present</p>' +
+    '<p class="resume-doc__dates">November 2025 – October 2026</p>' +
     '</div>' +
     '<p class="resume-doc__org">Sunglass Hut <span>Brisbane, QLD</span></p>' +
     '<ul>' +
-    '<li>Achieved 700+ sales and over AUD 150K in gross sales through personalized service, strong product knowledge, and a clear understanding of customer needs.</li>' +
+    '<li>Achieved 1200+ sales and over AUD 350K in gross sales through personalized service, strong product knowledge, and a clear understanding of customer needs.</li>' +
     '<li>Specialized in selling Meta smart glasses and designer eyewear using style-led, conversion-focused recommendations tailored to each customer.</li>' +
     '</ul>' +
     '</article>' +
@@ -115,7 +115,7 @@
     '</div>' +
     '<p class="resume-window__title">derek-resume.pdf</p>' +
     '<div class="resume-window__actions" aria-label="Resume actions">' +
-    '<a class="resume-window__download" href="assets/derek-resume.pdf" download>Download</a>' +
+    '<a class="resume-window__download" href="assets/derek-resume.pdf?v=2" download="derek-resume.pdf">Download</a>' +
     '</div>' +
     '</div>' +
     '<div class="resume-window__content">' +
